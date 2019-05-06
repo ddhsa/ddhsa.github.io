@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://ddhsa.github.io/"/>
-  <updated>2019-05-06T07:23:08.954Z</updated>
+  <updated>2019-05-06T10:15:32.906Z</updated>
   <id>https://ddhsa.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>post</title>
+    <link href="https://ddhsa.github.io/2019/05/06/post/"/>
+    <id>https://ddhsa.github.io/2019/05/06/post/</id>
+    <published>2019-05-06T09:16:41.000Z</published>
+    <updated>2019-05-06T10:15:32.906Z</updated>
+    
+    <content type="html"><![CDATA[<hr><p>title: post<br>date: 1557134201000</p><p>categories:<br>/* 分类，支持多级，比如：</p><ul><li>technology</li><li>computer</li><li>computer-aided-art<br>*/</li></ul><p>tags:<br>/* 标签<br>** 多个可以这样写</p><ul><li>标签1</li><li>标签2</li><li>标签3<br>*/</li></ul><p>description:<br>/<em> 文章的描述，在每篇文章标题下方显示</em>/</p><p>comments:<br>/<em> 是否开启评论<br><strong> 默认值是 true</strong> 要关闭写 false</em>/</p><p>photos:<br>/* Gallery support，用来支持画廊 / 相册，用法如下：</p><ul><li>photo_url_1</li><li>photo_url_2</li><li>photo_url_3<br>*/</li></ul><p>link:<br>/<em> 文章的外部链接</em>/</p><p>top: true<br>/<em> 文章置顶<br>** true就是开启，flase就是关闭置顶。</em>/</p><p>password:daixia123<br>/<em> 文章密码，参考本文”1.20.文章加密访问”<br>** 需配置好，否则请勿添加！</em>/</p><hr>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;hr&gt;
+&lt;p&gt;title: post&lt;br&gt;date: 1557134201000&lt;/p&gt;
+&lt;p&gt;categories:&lt;br&gt;/* 分类，支持多级，比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;technology&lt;/li&gt;
+&lt;li&gt;computer&lt;/li&gt;
+&lt;li&gt;computer-
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>我的网站搭建全记录</title>
