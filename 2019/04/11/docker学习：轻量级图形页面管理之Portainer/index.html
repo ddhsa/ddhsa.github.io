@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="docker、portainer,">
 
 
 
@@ -88,16 +88,24 @@
 
 
 
-<meta name="description" content="收集控 | 记录 | 分享 | 爱学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="学无止境">
-<meta property="og:url" content="https://ddhsa.github.io/index.html">
+<meta name="description" content="1.介绍 docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyard等等，本文主要介绍Portainer。   Portainer是一个开源、轻量级Docker管理用户界面，基于Docker API，提供状态显示面板、应用模板快速部署、容器镜像网络数据卷的基本操作（包括上传下载镜像，创建容器等操作）、事件日志显示、容器控制台操作、Swarm集群和服务等集中管">
+<meta name="keywords" content="docker、portainer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker学习：轻量级图形页面管理之Portainer">
+<meta property="og:url" content="https://ddhsa.github.io/2019/04/11/docker学习：轻量级图形页面管理之Portainer/index.html">
 <meta property="og:site_name" content="学无止境">
-<meta property="og:description" content="收集控 | 记录 | 分享 | 爱学习">
+<meta property="og:description" content="1.介绍 docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyard等等，本文主要介绍Portainer。   Portainer是一个开源、轻量级Docker管理用户界面，基于Docker API，提供状态显示面板、应用模板快速部署、容器镜像网络数据卷的基本操作（包括上传下载镜像，创建容器等操作）、事件日志显示、容器控制台操作、Swarm集群和服务等集中管">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/201803/05/5b88849fe1e52c6fb6fa78b74aded19c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/201803/05/d0ac00ebaa10a3cad79cbbe2687b6ab0.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/201803/05/b138b2e9e8f5d0748df6fde86da103c0.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/201803/05/35c353abedce986cca4a3c3f91ec4a45.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/201803/05/c0e9e1e20302f7a8b318173dcce6eabb.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:updated_time" content="2019-05-06T14:52:26.223Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学无止境">
-<meta name="twitter:description" content="收集控 | 记录 | 分享 | 爱学习">
+<meta name="twitter:title" content="docker学习：轻量级图形页面管理之Portainer">
+<meta name="twitter:description" content="1.介绍 docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyard等等，本文主要介绍Portainer。   Portainer是一个开源、轻量级Docker管理用户界面，基于Docker API，提供状态显示面板、应用模板快速部署、容器镜像网络数据卷的基本操作（包括上传下载镜像，创建容器等操作）、事件日志显示、容器控制台操作、Swarm集群和服务等集中管">
+<meta name="twitter:image" content="https://s1.51cto.com/images/blog/201803/05/5b88849fe1e52c6fb6fa78b74aded19c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
 
 
 
@@ -127,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="https://ddhsa.github.io/">
+  <link rel="canonical" href="https://ddhsa.github.io/2019/04/11/docker学习：轻量级图形页面管理之Portainer/">
 
 
 
 
 
-  <title>学无止境</title>
+  <title>docker学习：轻量级图形页面管理之Portainer | 学无止境</title>
   
 
 
@@ -152,8 +160,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -246,165 +253,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ddhsa.github.io/2019/05/05/我的网站搭建记录/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ddhsa">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学无止境">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/05/我的网站搭建记录/" itemprop="url">我的网站搭建全记录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-05T07:44:00+08:00">
-                2019-05-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/05/05/我的网站搭建记录/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/05/我的网站搭建记录/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/05/05/我的网站搭建记录/" class="leancloud_visitors" data-flag-title="我的网站搭建全记录">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">热度&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-				 <span>℃</span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-1、准备工作购买域名（然而并没有卵用）我是在西部数码购买的，大家可以随便买，哪个便宜用哪个吧！说没有用是因为最开始建站初期你有很长时间都用不到域名，等你真正调试完准备上线了之后再买域名也不迟！
-购买云服务器你如果跟我一样是个穷屌丝的话，也可以先不买云服务器，可以先在本机上搞个环境测试下，不过早晚都
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/05/05/我的网站搭建记录/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-	<div>
-      
-	</div>
-	<div>
-      
-	</div>
-    
-    
-    
-
-    
-
-    
-
-    
-		
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -434,9 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/11/docker学习：轻量级图形页面管理之Portainer/" itemprop="url">docker学习：轻量级图形页面管理之Portainer</a></h1>
+          <h1 class="post-title" itemprop="name headline">docker学习：轻量级图形页面管理之Portainer</h1>
         
 
         <div class="post-meta">
@@ -530,211 +379,83 @@
       
 
       
-        
-          
-          1.介绍
-docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyard等等，本文主要介绍Portainer。
+        <h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h2><blockquote>
+<p>docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyard等等，本文主要介绍Portainer。</p>
+</blockquote>
+<p> Portainer是一个开源、轻量级Docker管理用户界面，基于Docker API，提供状态显示面板、应用模板快速部署、容器镜像网络数据卷的基本操作（包括上传下载镜像，创建容器等操作）、事件日志显示、容器控制台操作、Swarm集群和服务等集中管理和操作、登录用户管理和控制等功能。功能十分全面，基本能满足中小型单位对容器管理的全部需求。</p>
+<h2 id="2-创建容器"><a href="#2-创建容器" class="headerlink" title="2.创建容器"></a>2.创建容器</h2><h3 id="2-1下载官方镜像"><a href="#2-1下载官方镜像" class="headerlink" title="2.1下载官方镜像"></a>2.1下载官方镜像</h3><pre><code>[root@ ganbing /]# docker pull portainer/portainer
+Using default tag: latest
+latest: Pulling from portainer/portainer
+d1e017099d17: Pull complete 
+ba5495c717cb: Pull complete 
+Digest: sha256:8146a5aae1135a0ccee424488c6867b438be21d1e915903a858d12e8382b817b
+Status: Downloaded newer image for portainer/portainer:latest
+</code></pre><h3 id="2-2单机运行"><a href="#2-2单机运行" class="headerlink" title="2.2单机运行"></a>2.2单机运行</h3><blockquote>
+<p>如果仅有一个docker宿主机，则可使用单机版运行，Portainer单机版运行十分简单，只需要一条语句即可启动容器，来管理该机器上的docker镜像、容器等数据。</p>
+</blockquote>
+<p><strong>创建数据卷：</strong></p>
+<pre><code>[root@ganbing ~]# docker volume create portainer_data
+portainer_data
+</code></pre><p><strong>运行容器：</strong></p>
+<pre><code>[root@ganbing ~]# docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+439cc8a6d44a84f5967534c50d3accc43fbeb578258a52c2683afeb230dd6e04
+</code></pre><p>参数说明：<br>-d：容器在后台运行；<br>-p 9000:9000 ：宿主机9000端口映射容器中的9000端口<br>-v /var/run/docker.sock:/var/run/docker.sock ：把宿主机的Docker守护进程(Docker daemon)默认监听的Unix域套接字挂载到容器中；<br>-v portainer_data:/data ：把宿主机portainer_data数据卷挂载到容器/data目录；</p>
+<p><strong>查看容器进程：</strong></p>
+<pre><code>[root@ganbing ~]# docker ps -l
+CONTAINER ID        IMAGE                 COMMAND             CREATED             STATUS              PORTS                    NAMES
+439cc8a6d44a        portainer/portainer   &quot;/portainer&quot;        13 seconds ago      Up 13 seconds       0.0.0.0:9000-&gt;9000/tcp   amazing_clarke
+</code></pre><p><strong>访问服务：</strong></p>
+<ul>
+<li>访问方式：<a href="http://IP:9000" target="_blank" rel="noopener">http://IP:9000</a> ，首次登录需要注册用户，给用户admin设置密码，如下图：</li>
+</ul>
+<p><img src="https://s1.51cto.com/images/blog/201803/05/5b88849fe1e52c6fb6fa78b74aded19c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="docker：轻量级图形页面管理之Portainer"></p>
+<ul>
+<li><p>单机版本选择“Local”，点击Connect即可连接到本地docker，如下图：<br><img src="https://s1.51cto.com/images/blog/201803/05/d0ac00ebaa10a3cad79cbbe2687b6ab0.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="docker：轻量级图形页面管理之Portainer"><br>注意：从上图可以看出，有提示需要挂载本地 /var/run/docker.socker与容器内的/var/run/docker.socker连接。因此，在启动时必须指定该挂载文件。</p>
+</li>
+<li><p>进入后可以对容器、镜像、网络、数据卷等进行管理，如下图：<br><img src="https://s1.51cto.com/images/blog/201803/05/b138b2e9e8f5d0748df6fde86da103c0.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="docker：轻量级图形页面管理之Portainer"></p>
+</li>
+</ul>
+<h3 id="2-3集群运行"><a href="#2-3集群运行" class="headerlink" title="2.3集群运行"></a>2.3集群运行</h3><blockquote>
+<p>更多的情况下，我们会有一个docker集群，可能有几台机器，也可能有几十台机器，因此，进行集群管理就十分重要了，Portainer也支持集群管理，Portainer可以和Swarm一起来进行集群管理操作。首先要搭建了一个Swarm，本文不着重介绍swarm集群的安装。</p>
+</blockquote>
+<p><strong>portainer集群启动：</strong></p>
+<ul>
+<li><p>启动集群参考官方文档：<a href="https://portainer.io/install.html" target="_blank" rel="noopener">https://portainer.io/install.html</a></p>
+<pre><code>$ docker service create \
+--name portainer \
+--publish 9000:9000 \
+--replicas=1 \
+--constraint &apos;node.role == manager&apos; \
+--mount type=bind,src=//var/run/docker.sock,dst=/var/run/docker.sock \
+--mount type=bind,src=//opt/portainer,dst=/data \
+portainer/portainer \
+-H unix:///var/run/docker.sock
+</code></pre></li>
+<li><p>启动Portainer之后，首页还是给admin用户设置密码（这里和单机启动一样）。<br><img src="https://s1.51cto.com/images/blog/201803/05/35c353abedce986cca4a3c3f91ec4a45.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="docker：轻量级图形页面管理之Portainer"></p>
+</li>
+<li><p>进入后，如下图所示会发现多了关于swarm的选项，其它配置和单机运行的portainer一样，都很简单：<br><img src="https://s1.51cto.com/images/blog/201803/05/c0e9e1e20302f7a8b318173dcce6eabb.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="docker：轻量级图形页面管理之Portainer"></p>
+</li>
+<li><p>Portainer的基本操作就这么多，具体的操作步骤还需要大家自己去学习理解。</p>
+</li>
+</ul>
+<h2 id="3-参考链接"><a href="#3-参考链接" class="headerlink" title="3.参考链接"></a>3.参考链接</h2><p>官方网站：<a href="https://portainer.io/" target="_blank" rel="noopener">https://portainer.io/</a><br>官方文档：<a href="https://portainer.readthedocs.io/" target="_blank" rel="noopener">https://portainer.readthedocs.io/</a><br>演示网址：<a href="http://demo.portainer.io" target="_blank" rel="noopener">http://demo.portainer.io</a> 账号admin 密码 tryportainer</p>
 
- Portainer是一个开源、轻量级Docker管理用户界面，基于Docker API，提供状态显示面板、应用模板快速部署、容器镜像网络数据卷的基本
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/11/docker学习：轻量级图形页面管理之Portainer/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
       
     </div>
 	<div>
       
+        ﻿
+      
 	</div>
 	<div>
       
-	</div>
+          ﻿<div>
     
-    
-    
-
-    
-
-    
-
-    
-		
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ddhsa.github.io/2019/03/27/小把戏：自建密码托管，记录bitwarden-rs部署过程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ddhsa">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学无止境">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/27/小把戏：自建密码托管，记录bitwarden-rs部署过程/" itemprop="url">小把戏：自建密码托管，记录bitwarden_rs部署过程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-27T16:18:00+08:00">
-                2019-03-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker学习/" itemprop="url" rel="index">
-                    <span itemprop="name">docker学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/03/27/小把戏：自建密码托管，记录bitwarden-rs部署过程/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/27/小把戏：自建密码托管，记录bitwarden-rs部署过程/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/03/27/小把戏：自建密码托管，记录bitwarden-rs部署过程/" class="leancloud_visitors" data-flag-title="小把戏：自建密码托管，记录bitwarden_rs部署过程">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">热度&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-				 <span>℃</span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+              ----------本文结束<i class="fa fa-paw"></i>感谢您的阅读----------
         </div>
-      </header>
     
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-声明：本次部署参考了my nook大神的部署方式，由于我是个小白，原文的部署方式的我来说还是不够细节，故重新整理了此文章部署过程，方便各位小伙伴参考，如有疑问欢迎各位在评论中提出。
-
-目录
-要求
-配置文件
-反向代理和 HTTPS、启动服务
-用户注册和数据导入
-关闭用户注册、关闭 web vault
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/27/小把戏：自建密码托管，记录bitwarden-rs部署过程/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-	<div>
-      
-	</div>
-	<div>
+</div>
       
 	</div>
     
@@ -749,14 +470,40 @@ docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyar
 		
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/docker、portainer/" rel="tag"><i class="fa fa-tag"></i> docker、portainer</a>
+          
+        </div>
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/27/小把戏：自建密码托管，记录bitwarden-rs部署过程/" rel="next" title="小把戏：自建密码托管，记录bitwarden_rs部署过程">
+                <i class="fa fa-chevron-left"></i> 小把戏：自建密码托管，记录bitwarden_rs部署过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/05/我的网站搭建记录/" rel="prev" title="我的网站搭建全记录">
+                我的网站搭建全记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </div>
@@ -766,10 +513,11 @@ docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyar
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -777,6 +525,13 @@ docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyar
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -797,8 +552,17 @@ docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyar
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -929,6 +693,22 @@ docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyar
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-介绍"><span class="nav-number">1.</span> <span class="nav-text">1.介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-创建容器"><span class="nav-number">2.</span> <span class="nav-text">2.创建容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1下载官方镜像"><span class="nav-number">2.1.</span> <span class="nav-text">2.1下载官方镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2单机运行"><span class="nav-number">2.2.</span> <span class="nav-text">2.2单机运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3集群运行"><span class="nav-number">2.3.</span> <span class="nav-text">2.3集群运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-参考链接"><span class="nav-number">3.</span> <span class="nav-text">3.参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1071,6 +851,10 @@ docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyar
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
