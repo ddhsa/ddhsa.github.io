@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="docker、portainer,">
+  <meta name="keywords" content="docker,portainer,">
 
 
 
@@ -89,7 +89,7 @@
 
 
 <meta name="description" content="1.介绍 docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyard等等，本文主要介绍Portainer。   Portainer是一个开源、轻量级Docker管理用户界面，基于Docker API，提供状态显示面板、应用模板快速部署、容器镜像网络数据卷的基本操作（包括上传下载镜像，创建容器等操作）、事件日志显示、容器控制台操作、Swarm集群和服务等集中管">
-<meta name="keywords" content="docker、portainer">
+<meta name="keywords" content="docker,portainer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker学习：轻量级图形页面管理之Portainer">
 <meta property="og:url" content="https://ddhsa.github.io/2019/04/11/docker学习：轻量级图形页面管理之Portainer/index.html">
@@ -101,7 +101,7 @@
 <meta property="og:image" content="https://s1.51cto.com/images/blog/201803/05/b138b2e9e8f5d0748df6fde86da103c0.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
 <meta property="og:image" content="https://s1.51cto.com/images/blog/201803/05/35c353abedce986cca4a3c3f91ec4a45.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
 <meta property="og:image" content="https://s1.51cto.com/images/blog/201803/05/c0e9e1e20302f7a8b318173dcce6eabb.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
-<meta property="og:updated_time" content="2019-05-06T14:52:26.223Z">
+<meta property="og:updated_time" content="2019-05-07T23:27:43.287Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker学习：轻量级图形页面管理之Portainer">
 <meta name="twitter:description" content="1.介绍 docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyard等等，本文主要介绍Portainer。   Portainer是一个开源、轻量级Docker管理用户界面，基于Docker API，提供状态显示面板、应用模板快速部署、容器镜像网络数据卷的基本操作（包括上传下载镜像，创建容器等操作）、事件日志显示、容器控制台操作、Swarm集群和服务等集中管">
@@ -383,28 +383,18 @@
 <p>docker 图形化管理提供了很多工具，有Portainer、Docker UI、Shipyard等等，本文主要介绍Portainer。</p>
 </blockquote>
 <p> Portainer是一个开源、轻量级Docker管理用户界面，基于Docker API，提供状态显示面板、应用模板快速部署、容器镜像网络数据卷的基本操作（包括上传下载镜像，创建容器等操作）、事件日志显示、容器控制台操作、Swarm集群和服务等集中管理和操作、登录用户管理和控制等功能。功能十分全面，基本能满足中小型单位对容器管理的全部需求。</p>
-<h2 id="2-创建容器"><a href="#2-创建容器" class="headerlink" title="2.创建容器"></a>2.创建容器</h2><h3 id="2-1下载官方镜像"><a href="#2-1下载官方镜像" class="headerlink" title="2.1下载官方镜像"></a>2.1下载官方镜像</h3><pre><code>[root@ ganbing /]# docker pull portainer/portainer
-Using default tag: latest
-latest: Pulling from portainer/portainer
-d1e017099d17: Pull complete 
-ba5495c717cb: Pull complete 
-Digest: sha256:8146a5aae1135a0ccee424488c6867b438be21d1e915903a858d12e8382b817b
-Status: Downloaded newer image for portainer/portainer:latest
-</code></pre><h3 id="2-2单机运行"><a href="#2-2单机运行" class="headerlink" title="2.2单机运行"></a>2.2单机运行</h3><blockquote>
+<h2 id="2-创建容器"><a href="#2-创建容器" class="headerlink" title="2.创建容器"></a>2.创建容器</h2><h3 id="2-1下载官方镜像"><a href="#2-1下载官方镜像" class="headerlink" title="2.1下载官方镜像"></a>2.1下载官方镜像</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@ ganbing /]# docker pull portainer/portainer</span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from portainer/portainer</span><br><span class="line">d1e017099d17: Pull complete</span><br><span class="line">ba5495c717cb: Pull complete</span><br><span class="line">Digest: sha256:8146a5aae1135a0ccee424488c6867b438be21d1e915903a858d12e8382b817b</span><br><span class="line">Status: Downloaded newer image for portainer/portainer:latest</span><br></pre></td></tr></table></figure>
+<h3 id="2-2单机运行"><a href="#2-2单机运行" class="headerlink" title="2.2单机运行"></a>2.2单机运行</h3><blockquote>
 <p>如果仅有一个docker宿主机，则可使用单机版运行，Portainer单机版运行十分简单，只需要一条语句即可启动容器，来管理该机器上的docker镜像、容器等数据。</p>
 </blockquote>
 <p><strong>创建数据卷：</strong></p>
-<pre><code>[root@ganbing ~]# docker volume create portainer_data
-portainer_data
-</code></pre><p><strong>运行容器：</strong></p>
-<pre><code>[root@ganbing ~]# docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
-439cc8a6d44a84f5967534c50d3accc43fbeb578258a52c2683afeb230dd6e04
-</code></pre><p>参数说明：<br>-d：容器在后台运行；<br>-p 9000:9000 ：宿主机9000端口映射容器中的9000端口<br>-v /var/run/docker.sock:/var/run/docker.sock ：把宿主机的Docker守护进程(Docker daemon)默认监听的Unix域套接字挂载到容器中；<br>-v portainer_data:/data ：把宿主机portainer_data数据卷挂载到容器/data目录；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@ganbing ~]# docker volume create portainer_data</span><br><span class="line">portainer_data</span><br></pre></td></tr></table></figure>
+<p><strong>运行容器：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@ganbing ~]# docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer</span><br><span class="line">439cc8a6d44a84f5967534c50d3accc43fbeb578258a52c2683afeb230dd6e04</span><br></pre></td></tr></table></figure>
+<p>参数说明：<br>-d：容器在后台运行；<br>-p 9000:9000 ：宿主机9000端口映射容器中的9000端口<br>-v /var/run/docker.sock:/var/run/docker.sock ：把宿主机的Docker守护进程(Docker daemon)默认监听的Unix域套接字挂载到容器中；<br>-v portainer_data:/data ：把宿主机portainer_data数据卷挂载到容器/data目录；</p>
 <p><strong>查看容器进程：</strong></p>
-<pre><code>[root@ganbing ~]# docker ps -l
-CONTAINER ID        IMAGE                 COMMAND             CREATED             STATUS              PORTS                    NAMES
-439cc8a6d44a        portainer/portainer   &quot;/portainer&quot;        13 seconds ago      Up 13 seconds       0.0.0.0:9000-&gt;9000/tcp   amazing_clarke
-</code></pre><p><strong>访问服务：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@ganbing ~]# docker ps -l</span><br><span class="line">CONTAINER ID        IMAGE                 COMMAND             CREATED             STATUS              PORTS                    NAMES</span><br><span class="line">439cc8a6d44a        portainer/portainer   &quot;/portainer&quot;        13 seconds ago      Up 13 seconds       0.0.0.0:9000-&gt;9000/tcp   amazing_clarke</span><br></pre></td></tr></table></figure>
+<p><strong>访问服务：</strong></p>
 <ul>
 <li>访问方式：<a href="http://IP:9000" target="_blank" rel="noopener">http://IP:9000</a> ，首次登录需要注册用户，给用户admin设置密码，如下图：</li>
 </ul>
@@ -420,17 +410,10 @@ CONTAINER ID        IMAGE                 COMMAND             CREATED           
 </blockquote>
 <p><strong>portainer集群启动：</strong></p>
 <ul>
-<li><p>启动集群参考官方文档：<a href="https://portainer.io/install.html" target="_blank" rel="noopener">https://portainer.io/install.html</a></p>
-<pre><code>$ docker service create \
---name portainer \
---publish 9000:9000 \
---replicas=1 \
---constraint &apos;node.role == manager&apos; \
---mount type=bind,src=//var/run/docker.sock,dst=/var/run/docker.sock \
---mount type=bind,src=//opt/portainer,dst=/data \
-portainer/portainer \
--H unix:///var/run/docker.sock
-</code></pre></li>
+<li>启动集群参考官方文档：<a href="https://portainer.io/install.html" target="_blank" rel="noopener">https://portainer.io/install.html</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ docker service create \</span><br><span class="line">--name portainer \</span><br><span class="line">--publish 9000:9000 \</span><br><span class="line">--replicas=1 \</span><br><span class="line">--constraint &apos;node.role == manager&apos; \</span><br><span class="line">--mount type=bind,src=//var/run/docker.sock,dst=/var/run/docker.sock \</span><br><span class="line">--mount type=bind,src=//opt/portainer,dst=/data \</span><br><span class="line">portainer/portainer \</span><br><span class="line">-H unix:///var/run/docker.sock</span><br></pre></td></tr></table></figure>
+<ul>
 <li><p>启动Portainer之后，首页还是给admin用户设置密码（这里和单机启动一样）。<br><img src="https://s1.51cto.com/images/blog/201803/05/35c353abedce986cca4a3c3f91ec4a45.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="docker：轻量级图形页面管理之Portainer"></p>
 </li>
 <li><p>进入后，如下图所示会发现多了关于swarm的选项，其它配置和单机运行的portainer一样，都很简单：<br><img src="https://s1.51cto.com/images/blog/201803/05/c0e9e1e20302f7a8b318173dcce6eabb.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="docker：轻量级图形页面管理之Portainer"></p>
@@ -472,7 +455,9 @@ portainer/portainer \
       
         <div class="post-tags">
           
-            <a href="/tags/docker、portainer/" rel="tag"><i class="fa fa-tag"></i> docker、portainer</a>
+            <a href="/tags/docker/" rel="tag"><i class="fa fa-tag"></i> docker</a>
+          
+            <a href="/tags/portainer/" rel="tag"><i class="fa fa-tag"></i> portainer</a>
           
         </div>
       
@@ -495,8 +480,8 @@ portainer/portainer \
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/05/我的网站搭建记录/" rel="prev" title="我的网站搭建全记录">
-                我的网站搭建全记录 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/07/学习方法：如何练就高智商，看看大神的学习观！/" rel="prev" title="学习方法：如何练就高智商，看看大神的学习观！">
+                学习方法：如何练就高智商，看看大神的学习观！ <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -579,7 +564,7 @@ portainer/portainer \
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -589,10 +574,10 @@ portainer/portainer \
               
               
               <div class="site-state-item site-state-categories">
-                
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -600,10 +585,10 @@ portainer/portainer \
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">2</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 

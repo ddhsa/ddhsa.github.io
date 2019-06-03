@@ -88,16 +88,17 @@
 
 
 
-<meta name="description" content="收集控 | 记录 | 分享 | 爱学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="学无止境">
-<meta property="og:url" content="https://ddhsa.github.io/archives/2019/03/index.html">
+<meta name="description" content="crontab定时计划 定时计划我们采用crontab指令即可，下面给大家讲解下用法  crontab [-u username] [-l|-e|-r] 参数：  -u: 只有root才能进行这个任务，也即帮其他用户新建/删除crontab工作调度;  -e: 编辑crontab 的工作内容;  -l: 查阅crontab的工作内容;  -r: 删除所有的crontab的工作内容，若仅要删除一项，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习记录（三）：Linux定时计划和开机启动项">
+<meta property="og:url" content="https://ddhsa.github.io/2019/05/20/Linux学习记录（三）：Linux定时计划和开机启动项/index.html">
 <meta property="og:site_name" content="学无止境">
-<meta property="og:description" content="收集控 | 记录 | 分享 | 爱学习">
+<meta property="og:description" content="crontab定时计划 定时计划我们采用crontab指令即可，下面给大家讲解下用法  crontab [-u username] [-l|-e|-r] 参数：  -u: 只有root才能进行这个任务，也即帮其他用户新建/删除crontab工作调度;  -e: 编辑crontab 的工作内容;  -l: 查阅crontab的工作内容;  -r: 删除所有的crontab的工作内容，若仅要删除一项，">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-22T09:45:46.495Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学无止境">
-<meta name="twitter:description" content="收集控 | 记录 | 分享 | 爱学习">
+<meta name="twitter:title" content="Linux学习记录（三）：Linux定时计划和开机启动项">
+<meta name="twitter:description" content="crontab定时计划 定时计划我们采用crontab指令即可，下面给大家讲解下用法  crontab [-u username] [-l|-e|-r] 参数：  -u: 只有root才能进行这个任务，也即帮其他用户新建/删除crontab工作调度;  -e: 编辑crontab 的工作内容;  -l: 查阅crontab的工作内容;  -r: 删除所有的crontab的工作内容，若仅要删除一项，">
 
 
 
@@ -127,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="https://ddhsa.github.io/archives/2019/03/">
+  <link rel="canonical" href="https://ddhsa.github.io/2019/05/20/Linux学习记录（三）：Linux定时计划和开机启动项/">
 
 
 
 
 
-  <title>归档 | 学无止境</title>
+  <title>Linux学习记录（三）：Linux定时计划和开机启动项 | 学无止境</title>
   
 
 
@@ -152,7 +153,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -246,177 +247,263 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ddhsa.github.io/2019/05/20/Linux学习记录（三）：Linux定时计划和开机启动项/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ddhsa">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学无止境">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Linux学习记录（三）：Linux定时计划和开机启动项</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T09:34:03+08:00">
+                2019-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 17 篇日志。 继续努力。
-      </span>
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/20/Linux学习记录（三）：Linux定时计划和开机启动项/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/20/Linux学习记录（三）：Linux定时计划和开机启动项/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-        
+          
+          
+             <span id="/2019/05/20/Linux学习记录（三）：Linux定时计划和开机启动项/" class="leancloud_visitors" data-flag-title="Linux学习记录（三）：Linux定时计划和开机启动项">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/27/小把戏：自建密码托管，记录bitwarden-rs部署过程/" itemprop="url">
-              
-                <span itemprop="name">小把戏：自建密码托管，记录bitwarden_rs部署过程</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-27T16:18:00+08:00" content="2019-03-27">
-          03-27
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/17/生活记录：老婆公司年会视频，美美哒！/" itemprop="url">
-              
-                <span itemprop="name">生活记录：老婆公司年会视频，美美哒！</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-17T17:48:00+08:00" content="2019-03-17">
-          03-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/02/主题修改：欲思主题常见问题与解答-非官方FAQ/" itemprop="url">
-              
-                <span itemprop="name">主题修改：欲思主题常见问题与解答[非官方FAQ]</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-02T17:20:00+08:00" content="2019-03-02">
-          03-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/01/好歌推荐：甜美日系风，関取花-ラッターネ/" itemprop="url">
-              
-                <span itemprop="name">好歌推荐：甜美日系风，関取花 - ラッターネ</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-01T16:50:00+08:00" content="2019-03-01">
-          03-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h1 id="crontab定时计划"><a href="#crontab定时计划" class="headerlink" title="crontab定时计划"></a>crontab定时计划</h1><blockquote>
+<p>定时计划我们采用<code>crontab</code>指令即可，下面给大家讲解下用法</p>
+</blockquote>
+<p><em>crontab [-u username] [-l|-e|-r]</em></p>
+<p>参数：</p>
+<ul>
+<li><p><code>-u</code>: 只有root才能进行这个任务，也即帮其他用户新建/删除crontab工作调度;</p>
+</li>
+<li><p><code>-e</code>: 编辑crontab 的工作内容;</p>
+</li>
+<li><p><code>-l</code>: 查阅crontab的工作内容;</p>
+</li>
+<li><p><code>-r</code>: 删除所有的crontab的工作内容，若仅要删除一项，请用-e去编辑。</p>
+</li>
+</ul>
+<p>范例一：用<code>dmtsai</code>的身份在每天的<code>12：00</code>发信给自己<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure></p>
+<p>建立任务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 12 * * * mail dmtsai -s &quot;at 12:00&quot; &lt; /home/dmtsai/.bashrc</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th>代表意义</th>
+<th>分钟</th>
+<th>小时</th>
+<th>日期</th>
+<th>月份</th>
+<th>周</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数字范围</td>
+<td>0~59</td>
+<td>0~23</td>
+<td>1~31</td>
+<td>1~12</td>
+<td>0~7</td>
+<td>就命令啊</td>
+</tr>
+</tbody>
+</table>
+<p>周的数字为0或7时，都代表“星期天”的意思。另外，还有一些辅助的字符，大概有下面这些：</p>
+<table>
+<thead>
+<tr>
+<th>特殊字符</th>
+<th>代表意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*(星号)</code></td>
+<td>代表任何时刻都接受的意思。举例来说，范例一内那个日、月、周都是<code>*</code>，就代表着不论何月、何日的礼拜几的12：00都执行后续命令的意思。</td>
+</tr>
+<tr>
+<td><code>,(逗号)</code></td>
+<td>代表分隔时段的意思。举例来说，如果要执行的工作是3：00与6：00时，就会是：<code>0 3,6 * * * command</code>时间还是有五列，不过第二列是 3,6 ，代表3与6都适用</td>
+</tr>
+<tr>
+<td><code>-(减号)</code></td>
+<td>代表一段时间范围内，举例来说，8点到12点之间的每小时的20分都进行一项工作：<code>20 8-12 * * * command</code>仔细看到第二列变成<code>8-12</code>代表8,9,10,11,12 都适用的意思</td>
+</tr>
+<tr>
+<td><code>/n(斜线)</code></td>
+<td>那个n代表数字，即是每隔n单位间隔的意思，例如每五分钟进行一次，则：<code>*/5 * * * * command</code>用<code>*</code>与<code>/5</code>来搭配，也可以写成0-59/5，意思相同为当前用户创建cron服务</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-键入-crontab-e-编辑crontab服务文件"><a href="#1-键入-crontab-e-编辑crontab服务文件" class="headerlink" title="1.键入 crontab  -e 编辑crontab服务文件"></a>1.键入 crontab  -e 编辑crontab服务文件</h2><p>例如文件内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/2 * * * * /bin/sh /home/admin/jiaoben/buy/deleteFile.sh</span><br></pre></td></tr></table></figure></p>
+<p>保存文件并并退出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/2 * * * * /bin/sh /home/admin/jiaoben/buy/deleteFile.sh</span><br></pre></td></tr></table></figure></p>
+<p> <code>*/2 * * * *</code>通过这段字段可以设定什么时候执行脚本<br><code>/bin/sh /home/admin/jiaoben/buy/deleteFile.sh</code> 这一字段可以设定你要执行的脚本，这里要注意一下<code>bin/sh</code> 是指运行  脚本的命令  后面一段时指脚本存放的路径</p>
+<h2 id="2-查看该用户下的crontab服务是否创建成功"><a href="#2-查看该用户下的crontab服务是否创建成功" class="headerlink" title="2.查看该用户下的crontab服务是否创建成功"></a>2.查看该用户下的crontab服务是否创建成功</h2><p> 用 <code>crontab  -l</code> 命令  </p>
+<h2 id="3-启动crontab服务"><a href="#3-启动crontab服务" class="headerlink" title="3.启动crontab服务"></a>3.启动crontab服务</h2><p>一般启动服务用  <code>/sbin/service crond start</code> 若是根用户的<code>cron</code>服务可以用 <code>sudo service crond start</code>， 这里还是要注意下不同版本<strong>linux</strong>系统启动的服务的命令也不同 ，像我的虚拟机里只需用 <code>sudo service cron restart</code> 即可，若是在根用下直接键入<code>service cron start</code>就能启动服务</p>
+<h2 id="4-查看服务是否已经运行"><a href="#4-查看服务是否已经运行" class="headerlink" title="4.查看服务是否已经运行"></a>4.查看服务是否已经运行</h2><p>用 <code>ps -ax | grep cron</code> </p>
+<h2 id="5-开启-关闭定时任务"><a href="#5-开启-关闭定时任务" class="headerlink" title="5.开启/关闭定时任务"></a>5.开启/关闭定时任务</h2><p>fileclear.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">tamcdir=$&#123;HOME&#125;/ora/user_projects/domains/tamc</span><br><span class="line">cd $&#123;tamcdir&#125;</span><br><span class="line">echo rm -f `ls heapdump*.phd`</span><br><span class="line">rm -f heapdump*.phd</span><br><span class="line">echo rm -f `ls javacore*.txt`</span><br><span class="line">rm -f javacore*.txt</span><br><span class="line">echo rm -f `ls Snap*.trc`</span><br><span class="line">rm -f Snap*.trc</span><br><span class="line">cd bin</span><br><span class="line">echo cp /dev/null nuhup.out</span><br><span class="line">cp /dev/null nuhup.out</span><br><span class="line">cd $&#123;tamcdir&#125;/pxbak</span><br><span class="line">echo rm -rf `ls 20*`</span><br><span class="line">rm -rf 20*</span><br><span class="line">cd $&#123;tamcdir&#125;/webapps/tamcx/fileLoad</span><br><span class="line">echo rm -f `find /weblogic/ora/user_projects/domains/tamc/webapps/tamcx/fileLoad/ -mtime +1`</span><br><span class="line">find /weblogic/ora/user_projects/domains/tamc/webapps/tamcx/fileLoad/ -mtime +1 -exec rm -f &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+<p>task.crontab</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#web服务端日志、临时文件清理</span><br><span class="line">10 1 * * * ksh $HOME/tools/clearweblogic.sh &gt;&gt;/weblogic/ora/user_projects/domains/tamc/webapps/tamcx/log/crontab.log 2&gt;&gt;/weblogic/ora/user_projects/domains/tamc/webapps/tamcx/log/crontab.log</span><br></pre></td></tr></table></figure>
+<p><code>task.null.crontab</code>是一个没有内容的空文件</p>
+<p>开启定时任务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab /weblogic/tools/task.crontab</span><br></pre></td></tr></table></figure></p>
+<p>停止定时任务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab /weblogic/tools/task.null.crontab</span><br></pre></td></tr></table></figure></p>
 
       
-
     </div>
+	<div>
+      
+        ﻿
+      
+	</div>
+	<div>
+      
+          ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+              ----------本文结束<i class="fa fa-paw"></i>感谢您的阅读----------
+        </div>
+    
+</div>
+      
+	</div>
+    
+    
+    
+
+    
+
+    
+
+    
+		
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/17/ProXmoX-VE搭建家庭多媒体服务器（二）：Frp内网穿透实现外网访问/" rel="next" title="ProXmoX VE搭建家庭多媒体服务器（二）：Frp内网穿透实现外网访问">
+                <i class="fa fa-chevron-left"></i> ProXmoX VE搭建家庭多媒体服务器（二）：Frp内网穿透实现外网访问
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/03/python学习记录（一）：给你的centos安装最新的Python版本/" rel="prev" title="python学习记录（一）：给你的centos安装最新的Python版本">
+                python学习记录（一）：给你的centos安装最新的Python版本 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -424,6 +511,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -444,8 +538,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -576,6 +679,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#crontab定时计划"><span class="nav-number">1.</span> <span class="nav-text">crontab定时计划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-键入-crontab-e-编辑crontab服务文件"><span class="nav-number">1.1.</span> <span class="nav-text">1.键入 crontab  -e 编辑crontab服务文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-查看该用户下的crontab服务是否创建成功"><span class="nav-number">1.2.</span> <span class="nav-text">2.查看该用户下的crontab服务是否创建成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-启动crontab服务"><span class="nav-number">1.3.</span> <span class="nav-text">3.启动crontab服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-查看服务是否已经运行"><span class="nav-number">1.4.</span> <span class="nav-text">4.查看服务是否已经运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-开启-关闭定时任务"><span class="nav-number">1.5.</span> <span class="nav-text">5.开启/关闭定时任务</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -718,6 +837,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
