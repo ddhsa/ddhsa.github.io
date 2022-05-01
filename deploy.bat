@@ -1,0 +1,1 @@
+D: && cd D:/yang/00_github/blog && hexo clean && hexo g && hexo d
