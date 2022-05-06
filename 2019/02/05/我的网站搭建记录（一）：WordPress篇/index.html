@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="网站," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="学无止境" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="1、准备工作购买域名（然而并没有卵用）我是在西部数码购买的，大家可以随便买，哪个便宜用哪个吧！说没有用是因为最开始建站初期你有很长时间都用不到域名，等你真正调试完准备上线了之后再买域名也不迟！ 购买云服务器你如果跟我一样是个穷屌丝的话，也可以先不买云服务器，可以先在本机上搞个环境测试下，不过早晚都是买，可以先从便宜的云虚拟主机或者空间买，等你觉得你够牛逼了再买ECS；另外可以在网上多关注一下优惠">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的网站搭建记录（一）：WordPress篇">
+<meta property="og:url" content="https://ddhsa.github.io/2019/02/05/%E6%88%91%E7%9A%84%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AWordPress%E7%AF%87/index.html">
+<meta property="og:site_name" content="学无止境">
+<meta property="og:description" content="1、准备工作购买域名（然而并没有卵用）我是在西部数码购买的，大家可以随便买，哪个便宜用哪个吧！说没有用是因为最开始建站初期你有很长时间都用不到域名，等你真正调试完准备上线了之后再买域名也不迟！ 购买云服务器你如果跟我一样是个穷屌丝的话，也可以先不买云服务器，可以先在本机上搞个环境测试下，不过早晚都是买，可以先从便宜的云虚拟主机或者空间买，等你觉得你够牛逼了再买ECS；另外可以在网上多关注一下优惠">
+<meta property="og:locale">
+<meta property="og:image" content="http://cdn.pidaye.top/wangzhandajian.jpg">
+<meta property="article:published_time" content="2019-02-05T07:44:00.000Z">
+<meta property="article:modified_time" content="2022-05-06T08:19:28.893Z">
+<meta property="article:author" content="ddhsa">
+<meta property="article:tag" content="网站">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.pidaye.top/wangzhandajian.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://ddhsa.github.io/2019/02/05/我的网站搭建记录（一）：WordPress篇/"/>
+
+
+
+
+
+  <title>我的网站搭建记录（一）：WordPress篇 | 学无止境</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学无止境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">提升自己是亘古不变的真理</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ddhsa.github.io/2019/02/05/%E6%88%91%E7%9A%84%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AWordPress%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学无止境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">我的网站搭建记录（一）：WordPress篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-05T07:44:00+00:00">
+                2019-02-05
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-05-06T08:19:28+00:00">
+                2022-05-06
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index">
+                    <span itemprop="name">网站搭建</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/05/%E6%88%91%E7%9A%84%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AWordPress%E7%AF%87/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/05/%E6%88%91%E7%9A%84%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AWordPress%E7%AF%87/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/02/05/%E6%88%91%E7%9A%84%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AWordPress%E7%AF%87/" class="leancloud_visitors" data-flag-title="我的网站搭建记录（一）：WordPress篇">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://cdn.pidaye.top/wangzhandajian.jpg" alt="blob.jpg"></p>
+<h2 id="1、准备工作"><a href="#1、准备工作" class="headerlink" title="1、准备工作"></a>1、准备工作</h2><h3 id="购买域名（然而并没有卵用）"><a href="#购买域名（然而并没有卵用）" class="headerlink" title="购买域名（然而并没有卵用）"></a>购买域名（然而并没有卵用）</h3><p>我是在<code>西部数码</code>购买的，大家可以随便买，哪个便宜用哪个吧！<br>说没有用是因为最开始建站初期你有很长时间都用不到域名，等你真正调试完准备上线了之后再买域名也不迟！</p>
+<h3 id="购买云服务器"><a href="#购买云服务器" class="headerlink" title="购买云服务器"></a>购买云服务器</h3><p>你如果跟我一样是个穷屌丝的话，也可以先不买云服务器，可以先在本机上搞个环境测试下，不过早晚都是买，可以先从便宜的云虚拟主机或者空间买，等你觉得你够牛逼了再买ECS；<br>另外可以在网上多关注一下优惠活动，有时候服务器包年啥的很便宜，白菜可以看情况屯；<br>给大家推荐几个网站吧：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.haihuizhuji.com" title="海会主机">海会主机</a>（网站不大初级用户可以看看便宜的云主机）</li>
+<li><a target="_blank" rel="noopener" href="https://cn.aliyun.com" title="阿里云">阿里云</a>（比较好用吧，我用的这个）</li>
+<li><a target="_blank" rel="noopener" href="http://www.yecaoyun.com" title="野草云">野草云</a>（这个很小众但是便宜啊）</li>
+<li><a target="_blank" rel="noopener" href="https://www.vpsmm.com" title="小夜博客">小夜博客</a>（可以看看这里的优惠）</li>
+</ul>
+<h3 id="搭建环境-调试"><a href="#搭建环境-调试" class="headerlink" title="搭建环境/调试"></a>搭建环境/调试</h3><p><strong>环境准备：</strong><br>可以使用<a target="_blank" rel="noopener" href="https://www.apachefriends.org/zh_cn/index.html" title="XAMPP">XAMPP</a>搭建，也可以用国内比较火的<a target="_blank" rel="noopener" href="https://www.bt.cn" title="宝塔面板">宝塔面板</a>搭建，这个就不给大家演示了，比较简单都是一键式的；<br><strong>整体调试</strong><br>调试前先要搞一个<a target="_blank" rel="noopener" href="https://cn.wordpress.org" title="wordpress">wordpress</a>安装包，可以直接在<a target="_blank" rel="noopener" href="https://cn.wordpress.org" title="wordpress官网">wordpress官网</a>上下载，然后按照说明操作即完成了站点的搭建。</p>
+<blockquote>
+<p><em>注：以下是快速安装说明</em><br>1、 下载并解压缩<code>WordPress</code>程序安装包, 如果你还没的话.<br>2、在你的网页服务器上为WordPress创建一个数据库, 并且也创建一个<code>MySQL</code> 拥有所有权限可以进入和修改的用户.<br>3、重命名<code>wp-config-sample.php</code>文件为 <code>wp-config.php</code>.<br>4、用你最喜欢的 文本编辑器 打开 <code>wp-config.php</code> ，填上你的数据库信息。<br>5、把WordPress文件夹放在你服务器上想要放的地方:</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>如果你想把通过顶级域名来访问你的WordPress博客 (例如 <a target="_blank" rel="noopener" href="http://example.com/),移动或上传所有解压后的WordPress文件夹里面的文件(但不包括WordPress文件夹本身)">http://example.com/),移动或上传所有解压后的WordPress文件夹里面的文件(但不包括WordPress文件夹本身)</a> 到你服务器的根目录下.</li>
+<li>如果你想通过子域名来访问你的博客(例如 <a target="_blank" rel="noopener" href="http://example.com/blog/)">http://example.com/blog/)</a>, 将wordpress 重命名为你想要的子目录名称， 接着上传至你的网站服务器。 例如，你想让WordPress 安装在子目录”blog”中，你就应该将”wordpress”这个文件夹重命名为”blog”，接着上传至你的网站服务器的根目录中。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>6、在你喜欢的浏览器中访问wp-admin/install.php 以便启动安装程序.</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>如果你在根目录下安装WordPress,，你应该访问: <a target="_blank" rel="noopener" href="http://example.com/wp-admin/install.php">http://example.com/wp-admin/install.php</a></li>
+<li>如果你将WordPress安装在子目录blog下，你应该访问: <a target="_blank" rel="noopener" href="http://example.com/blog/wp-admin/install.php">http://example.com/blog/wp-admin/install.php</a></li>
+</ul>
+</blockquote>
+<h2 id="2、搭建操作"><a href="#2、搭建操作" class="headerlink" title="2、搭建操作"></a>2、搭建操作</h2><h3 id="下载工具织梦源码–》wordpress下载工具织梦源码–》wordpress"><a href="#下载工具织梦源码–》wordpress下载工具织梦源码–》wordpress" class="headerlink" title="下载工具织梦源码–》wordpress下载工具织梦源码–》wordpress"></a>下载工具织梦源码–》wordpress下载工具织梦源码–》wordpress</h3><h3 id="学习了markdown语言"><a href="#学习了markdown语言" class="headerlink" title="学习了markdown语言"></a>学习了markdown语言</h3><h3 id="观看教学视频"><a href="#观看教学视频" class="headerlink" title="观看教学视频"></a>观看教学视频</h3><h3 id="定位网站内容，决定尝试"><a href="#定位网站内容，决定尝试" class="headerlink" title="定位网站内容，决定尝试"></a>定位网站内容，决定尝试</h3><h3 id="下载yusi主题"><a href="#下载yusi主题" class="headerlink" title="下载yusi主题"></a>下载yusi主题</h3><h2 id="3、优化美化"><a href="#3、优化美化" class="headerlink" title="3、优化美化"></a>3、优化美化</h2><h3 id="调整主体样式（发现了很多坑）"><a href="#调整主体样式（发现了很多坑）" class="headerlink" title="调整主体样式（发现了很多坑）"></a>调整主体样式（发现了很多坑）</h3><p>表格样式、缩进、换行</p>
+<h3 id="添加音乐播放器（代码实现）"><a href="#添加音乐播放器（代码实现）" class="headerlink" title="添加音乐播放器（代码实现）"></a>添加音乐播放器（代码实现）</h3><p><a target="_blank" rel="noopener" href="https://github.com/MoePlayer/APlayer">https://github.com/MoePlayer/APlayer</a><br><a target="_blank" rel="noopener" href="https://github.com/metowolf/MetingJS">https://github.com/metowolf/MetingJS</a><br><a target="_blank" rel="noopener" href="https://aplayer.js.org/#/zh-Hans/">https://aplayer.js.org/#/zh-Hans/</a></p>
+<blockquote>
+<p>给大家看看效果</p>
+</blockquote>
+<p><style><br>    li {margin: 0em 0;}<br>    button {min-height: 0px;}<br>    .aplayer {margin: 0 0 1.75em 0 !important;}<br></style></p>
+<p><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css"></p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+<!-- 加在页眉 -->
+
+<div class="aplayer" data-id="2067465886" data-server="netease" data-volume="0.4"data-type="playlist" data-mode="random"></div>
+<!-- 播放网易云音乐歌单 -->
+
+<div id="aplayer">
+  <pre class="aplayer-lrc-content">
+        [by:呆唯yuki]
+        [00:00.000] 作曲 : 関取花
+        [00:01.000] 作词 : 関取花
+        [00:11.35]街のおきては厳しくて
+        [00:27.56]僕はいつもひとりぼっち
+        [00:32.89]何にも知らない君のこと
+        [00:38.20]一度愛しただけなのに
+        [00:54.78]街のみんなは冷たくて
+        [00:59.93]君はいつもひとりぼっち
+        [01:05.26]何にも知らない僕のこと
+        [01:10.78]一度愛しただけなのに
+        [01:15.55]とんでもない 出来事が起きた
+        [01:20.82]街中の灯が消えてった
+        [01:26.21]僕以外誰が灯すのだ
+        [01:31.68]君の事を誰が守るのだ
+        [01:37.34]ラッターネラッターネ タバコの火を消して
+        [01:42.91]ラッターネラッターネ ほら灯を灯せ
+        [01:59.59]君の作ったろうそくに
+        [02:04.62]僕が小さな灯を灯す
+        [02:10.10]僕がラッターネを作るから
+        [02:15.49]君は明かりを灯してよ
+        [02:20.16]とんでもないことを起こすのだ
+        [02:25.61]街中が目を覚ますまで
+        [02:30.97]これ以上 大切な事は 他にはない もう他には無い
+        [02:41.95]ラッターネラッターネ 暖炉の火を消して
+        [02:47.74]ラッターネラッターネ ほら灯を灯せ
+        [02:52.84]ラッターネラッターネ タバコの火を消して
+        [02:58.00]ラッターネラッターネ ほら灯を灯せ
+        [03:04.22]大停電の夜に ほら君と僕とでラッターネ
+        [03:14.80]せめてものおわびに 街中に灯を灯す
+        [03:25.47]ラッターネラッターネ タバコの火を消して
+        [03:30.84]ラッターネラッターネ ほら灯を灯せ
+        [03:36.23]ラッタ一ネラッターネ
+        [03:39.02]この街の誰も僕を一人にできやしないさ
+        [03:46.90]ラッターネラッターネ 踊りましょう
+        [03:52.11]ラッターネラッターネ 歌いましょう
+        [03:57.44]ラッターネラッターネ 目が覚めて
+        [04:03.09]ラッターネラッターネ 朝が来る
+    </pre>
+</div>
+<script>
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    lrcType: 2,
+    audio: [{
+        name: 'ラッターネ',
+        artist: ' 関取花',
+        url: 'http://pan.pidaye.top/?/02音乐/関取花%20-%20ラッターネ.mp3',
+        cover: 'http://pan.pidaye.top/?/02音乐/関取花%20-%20ラッターネ.jpg',
+      lrc: 'http://pan.yangkai126.club/?/02%E9%9F%B3%E4%B9%90/%E9%96%A2%E5%8F%96%E8%8A%B1%20-%20%E3%83%A9%E3%83%83%E3%82%BF%E3%83%BC%E3%83%8D.lrc'
+            }]
+});
+</script>
+<!-- 播放个人歌单 -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<!-- meting网易接口 -->
+
+>实现代码
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">li</span> &#123;<span class="attribute">margin</span>: <span class="number">0em</span> <span class="number">0</span>;&#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">button</span> &#123;<span class="attribute">min-height</span>: <span class="number">0px</span>;&#125;</span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.aplayer</span> &#123;<span class="attribute">margin</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1.75em</span> <span class="number">0</span> <span class="meta">!important</span>;&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 加在页眉 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;aplayer&quot;</span> <span class="attr">data-id</span>=<span class="string">&quot;2067465886&quot;</span> <span class="attr">data-server</span>=<span class="string">&quot;netease&quot;</span> <span class="attr">data-volume</span>=<span class="string">&quot;0.4&quot;</span><span class="attr">data-type</span>=<span class="string">&quot;playlist&quot;</span> <span class="attr">data-mode</span>=<span class="string">&quot;random&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 播放网易云音乐歌单 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;aplayer&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">pre</span> <span class="attr">class</span>=<span class="string">&quot;aplayer-lrc-content&quot;</span>&gt;</span></span><br><span class="line">        [by:呆唯yuki]</span><br><span class="line">		[00:00.000] 作曲 : 関取花</span><br><span class="line">		[00:01.000] 作词 : 関取花</span><br><span class="line">		[00:11.35]街のおきては厳しくて</span><br><span class="line">		[00:27.56]僕はいつもひとりぼっち</span><br><span class="line">		[00:32.89]何にも知らない君のこと</span><br><span class="line">		[00:38.20]一度愛しただけなのに</span><br><span class="line">		[00:54.78]街のみんなは冷たくて</span><br><span class="line">		[00:59.93]君はいつもひとりぼっち</span><br><span class="line">		[01:05.26]何にも知らない僕のこと</span><br><span class="line">		[01:10.78]一度愛しただけなのに</span><br><span class="line">		[01:15.55]とんでもない 出来事が起きた</span><br><span class="line">		[01:20.82]街中の灯が消えてった</span><br><span class="line">		[01:26.21]僕以外誰が灯すのだ</span><br><span class="line">		[01:31.68]君の事を誰が守るのだ</span><br><span class="line">		[01:37.34]ラッターネラッターネ タバコの火を消して</span><br><span class="line">		[01:42.91]ラッターネラッターネ ほら灯を灯せ</span><br><span class="line">		[01:59.59]君の作ったろうそくに</span><br><span class="line">		[02:04.62]僕が小さな灯を灯す</span><br><span class="line">		[02:10.10]僕がラッターネを作るから</span><br><span class="line">		[02:15.49]君は明かりを灯してよ</span><br><span class="line">		[02:20.16]とんでもないことを起こすのだ</span><br><span class="line">		[02:25.61]街中が目を覚ますまで</span><br><span class="line">		[02:30.97]これ以上 大切な事は 他にはない もう他には無い</span><br><span class="line">		[02:41.95]ラッターネラッターネ 暖炉の火を消して</span><br><span class="line">		[02:47.74]ラッターネラッターネ ほら灯を灯せ</span><br><span class="line">		[02:52.84]ラッターネラッターネ タバコの火を消して</span><br><span class="line">		[02:58.00]ラッターネラッターネ ほら灯を灯せ</span><br><span class="line">		[03:04.22]大停電の夜に ほら君と僕とでラッターネ</span><br><span class="line">		[03:14.80]せめてものおわびに 街中に灯を灯す</span><br><span class="line">		[03:25.47]ラッターネラッターネ タバコの火を消して</span><br><span class="line">		[03:30.84]ラッターネラッターネ ほら灯を灯せ</span><br><span class="line">		[03:36.23]ラッタ一ネラッターネ</span><br><span class="line">		[03:39.02]この街の誰も僕を一人にできやしないさ</span><br><span class="line">		[03:46.90]ラッターネラッターネ 踊りましょう</span><br><span class="line">		[03:52.11]ラッターネラッターネ 歌いましょう</span><br><span class="line">		[03:57.44]ラッターネラッターネ 目が覚めて</span><br><span class="line">		[04:03.09]ラッターネラッターネ 朝が来る</span><br><span class="line">    <span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> ap = <span class="keyword">new</span> <span class="title class_">APlayer</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">container</span>: <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;aplayer&#x27;</span>),</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">lrcType</span>: <span class="number">2</span>,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">audio</span>: [&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">name</span>: <span class="string">&#x27;ラッターネ&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">artist</span>: <span class="string">&#x27; 関取花&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">url</span>: <span class="string">&#x27;http://pan.yangkai126.club/?/02%E9%9F%B3%E4%B9%90/%E9%96%A2%E5%8F%96%E8%8A%B1%20-%20%E3%83%A9%E3%83%83%E3%82%BF%E3%83%BC%E3%83%8D.mp3&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">cover</span>: <span class="string">&#x27;http://pan.yangkai126.club/?/02%E9%9F%B3%E4%B9%90/%E9%96%A2%E5%8F%96%E8%8A%B1%20-%20%E3%83%A9%E3%83%83%E3%82%BF%E3%83%BC%E3%83%8D.jpg&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">lrc</span>: <span class="string">&#x27;http://pan.yangkai126.club/?/02%E9%9F%B3%E4%B9%90/%E9%96%A2%E5%8F%96%E8%8A%B1%20-%20%E3%83%A9%E3%83%83%E3%82%BF%E3%83%BC%E3%83%8D.lrc&#x27;</span></span></span><br><span class="line"><span class="language-javascript">            &#125;]</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 播放个人歌单 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- meting网易接口 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+**添加视频播放器**
+
+https://github.com/MoePlayer/DPlayer
+
+>给大家看看效果
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dplayer/1.25.0/DPlayer.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dplayer/1.25.0/DPlayer.min.js"></script>
+<!-- 在页眉引入css和js文件 -->
+
+<div id="dplayer-427-1"></div>
+<script>
+(function(){
+    var player = new DPlayer({
+        "container":document.getElementById("dplayer-427-1"),
+        "preload":"no",
+        "video":{
+            "url":"http://pan.pidaye.top/?/01电影/微创光电iVsom智慧运维管理平台介绍.mp4"
+        },
+        danmaku:{
+            id:"lumo-1903-021",
+            api:"https://api.diygod.me/dplayer/"
+        }
+    });
+    window.dplayers||(window.dplayers=[]);
+    window.dplayers.push(player);
+})()
+</script>
+
+<blockquote>
+<p>实现代码</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/dplayer/1.25.0/DPlayer.min.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/dplayer/1.25.0/DPlayer.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 在页眉引入css和js文件 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;dplayer-427-1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> player = <span class="keyword">new</span> <span class="title class_">DPlayer</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="string">&quot;container&quot;</span>:<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;dplayer-427-1&quot;</span>),</span></span><br><span class="line"><span class="language-javascript">        <span class="string">&quot;preload&quot;</span>:<span class="string">&quot;no&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="string">&quot;video&quot;</span>:&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="string">&quot;url&quot;</span>:<span class="string">&quot;http://pan.yangkai126.club/?/01%E7%94%B5%E5%BD%B1/%E5%BE%AE%E5%88%9B%E5%85%89%E7%94%B5iVsom%E6%99%BA%E6%85%A7%E8%BF%90%E7%BB%B4%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0%E4%BB%8B%E7%BB%8D.mp4&quot;</span></span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">danmaku</span>:&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">id</span>:<span class="string">&quot;lumo-1903-021&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">api</span>:<span class="string">&quot;https://api.diygod.me/dplayer/&quot;</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">window</span>.<span class="property">dplayers</span>||(<span class="variable language_">window</span>.<span class="property">dplayers</span>=[]);</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">window</span>.<span class="property">dplayers</span>.<span class="title function_">push</span>(player);</span></span><br><span class="line"><span class="language-javascript">&#125;)()</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 显示效果插入到文章正文 --&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>缩略图</strong><br><strong>字体</strong><br><strong>代码修改</strong><br><strong>新评论添加微信提醒功能</strong></p>
+
+      
+    </div>
+	<div>
+      
+        ﻿
+      
+	</div>
+	<div>
+      
+          ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+              ----------本文结束<i class="fa fa-paw"></i>感谢您的阅读----------
+        </div>
+    
+</div>
+      
+	</div>
+    
+    
+    
+
+    
+
+    
+
+    
+		
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%BD%91%E7%AB%99/" rel="tag"><i class="fa fa-tag"></i> 网站</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/13/%E7%BD%91%E7%AB%99%E4%BC%98%E5%8C%96%EF%BC%9A%E8%BF%99%E6%A0%B7%E4%BC%98%E5%8C%96%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%BD%A0%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99%E4%BD%93%E9%AA%8C%E6%9B%B4%E5%A5%BD%EF%BC%81/" rel="prev" title="网站优化：这样优化，可以你的个人网站体验更好！">
+                网站优化：这样优化，可以你的个人网站体验更好！ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ddhsa" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ddhsa@126.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.uisdc.com/" title="优设" target="_blank">优设</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.liaoxuefeng.com/" title="廖雪峰" target="_blank">廖雪峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://translate.google.cn" title="谷歌翻译" target="_blank">谷歌翻译</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://tool.oschina.net/codeformat/json" title="代码格式转换" target="_blank">代码格式转换</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.jq22.com/textDifference" title="文本对比" target="_blank">文本对比</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.aconvert.com/cn/" title="文件转换" target="_blank">文件转换</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">1、准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D%EF%BC%88%E7%84%B6%E8%80%8C%E5%B9%B6%E6%B2%A1%E6%9C%89%E5%8D%B5%E7%94%A8%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">购买域名（然而并没有卵用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%AD%E4%B9%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">购买云服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83-%E8%B0%83%E8%AF%95"><span class="nav-number">1.3.</span> <span class="nav-text">搭建环境&#x2F;调试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E6%90%AD%E5%BB%BA%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">2、搭建操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%B7%A5%E5%85%B7%E7%BB%87%E6%A2%A6%E6%BA%90%E7%A0%81%E2%80%93%E3%80%8Bwordpress%E4%B8%8B%E8%BD%BD%E5%B7%A5%E5%85%B7%E7%BB%87%E6%A2%A6%E6%BA%90%E7%A0%81%E2%80%93%E3%80%8Bwordpress"><span class="nav-number">2.1.</span> <span class="nav-text">下载工具织梦源码–》wordpress下载工具织梦源码–》wordpress</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E4%BA%86markdown%E8%AF%AD%E8%A8%80"><span class="nav-number">2.2.</span> <span class="nav-text">学习了markdown语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%82%E7%9C%8B%E6%95%99%E5%AD%A6%E8%A7%86%E9%A2%91"><span class="nav-number">2.3.</span> <span class="nav-text">观看教学视频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D%E7%BD%91%E7%AB%99%E5%86%85%E5%AE%B9%EF%BC%8C%E5%86%B3%E5%AE%9A%E5%B0%9D%E8%AF%95"><span class="nav-number">2.4.</span> <span class="nav-text">定位网站内容，决定尝试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDyusi%E4%B8%BB%E9%A2%98"><span class="nav-number">2.5.</span> <span class="nav-text">下载yusi主题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E4%BC%98%E5%8C%96%E7%BE%8E%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">3、优化美化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E6%95%B4%E4%B8%BB%E4%BD%93%E6%A0%B7%E5%BC%8F%EF%BC%88%E5%8F%91%E7%8E%B0%E4%BA%86%E5%BE%88%E5%A4%9A%E5%9D%91%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">调整主体样式（发现了很多坑）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%EF%BC%88%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">添加音乐播放器（代码实现）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ddhsa</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GFz2SbREPp2DMHW0QHPl94gg-gzGzoHsz',
+        appKey: 'oVifnPV3ed3m5YbcrBS9nP7F',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("GFz2SbREPp2DMHW0QHPl94gg-gzGzoHsz", "oVifnPV3ed3m5YbcrBS9nP7F");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

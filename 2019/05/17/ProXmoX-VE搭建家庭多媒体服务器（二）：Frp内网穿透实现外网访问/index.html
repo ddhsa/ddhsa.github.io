@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="pve,frp,内网穿透," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="学无止境" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="一、为什么要内网穿透当然是为了方便管理啦，最好是只要在有公网的地方就可以访问家里的服务器！ 其实之前用过ZeroTier one觉得已经很强大了，基本满足了日常应用场景，优势显而易见：  简单，搭建成本低，一条指令就可以搭建起来； 全平台支持，什么Linux、Android、Windows、MAC OS等等都能很好的支持； 稳定性可观，UDP打洞成功的话基本能实现P2P连接，速度仅由双方带宽决定，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ProXmoX VE搭建家庭多媒体服务器（二）：Frp内网穿透实现外网访问">
+<meta property="og:url" content="https://ddhsa.github.io/2019/05/17/ProXmoX-VE%E6%90%AD%E5%BB%BA%E5%AE%B6%E5%BA%AD%E5%A4%9A%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9AFrp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE/index.html">
+<meta property="og:site_name" content="学无止境">
+<meta property="og:description" content="一、为什么要内网穿透当然是为了方便管理啦，最好是只要在有公网的地方就可以访问家里的服务器！ 其实之前用过ZeroTier one觉得已经很强大了，基本满足了日常应用场景，优势显而易见：  简单，搭建成本低，一条指令就可以搭建起来； 全平台支持，什么Linux、Android、Windows、MAC OS等等都能很好的支持； 稳定性可观，UDP打洞成功的话基本能实现P2P连接，速度仅由双方带宽决定，">
+<meta property="og:locale">
+<meta property="og:image" content="http://cdn.pidaye.top/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8Chttp%E8%AE%BF%E9%97%AE%20-%20%E7%AE%80%E4%B9%A6.webp">
+<meta property="og:image" content="http://cdn.pidaye.top/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8Chttp%E8%AE%BF%E9%97%AE%20-%20%E7%AE%80%E4%B9%A6.webp">
+<meta property="og:image" content="http://cdn.pidaye.top/FE841EBA-76C5-48E7-B063-351ECE53453F%201133%C3%97725.jpg">
+<meta property="og:image" content="http://cdn.pidaye.top/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7-2018-03-28-%E4%B8%8B%E5%8D%883.30.17%201142%C3%97732.png">
+<meta property="og:image" content="http://cdn.pidaye.top/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7-2018-04-23-%E4%B8%8A%E5%8D%887.58.15%20998%C3%97568.png">
+<meta property="og:image" content="http://cdn.pidaye.top/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7-2018-04-23-%E4%B8%8A%E5%8D%888.11.45%201005%C3%97574.png">
+<meta property="og:image" content="http://cdn.pidaye.top/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7-2018-04-23-%E4%B8%8A%E5%8D%887.59.51%20996%C3%97568.png">
+<meta property="article:published_time" content="2019-05-17T14:30:00.000Z">
+<meta property="article:modified_time" content="2022-05-06T08:19:28.893Z">
+<meta property="article:author" content="ddhsa">
+<meta property="article:tag" content="pve">
+<meta property="article:tag" content="frp">
+<meta property="article:tag" content="内网穿透">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.pidaye.top/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8Chttp%E8%AE%BF%E9%97%AE%20-%20%E7%AE%80%E4%B9%A6.webp">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://ddhsa.github.io/2019/05/17/ProXmoX-VE搭建家庭多媒体服务器（二）：Frp内网穿透实现外网访问/"/>
+
+
+
+
+
+  <title>ProXmoX VE搭建家庭多媒体服务器（二）：Frp内网穿透实现外网访问 | 学无止境</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学无止境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">提升自己是亘古不变的真理</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ddhsa.github.io/2019/05/17/ProXmoX-VE%E6%90%AD%E5%BB%BA%E5%AE%B6%E5%BA%AD%E5%A4%9A%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9AFrp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学无止境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ProXmoX VE搭建家庭多媒体服务器（二）：Frp内网穿透实现外网访问</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-17T14:30:00+00:00">
+                2019-05-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-05-06T08:19:28+00:00">
+                2022-05-06
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E5%85%B4%E8%B6%A3/" itemprop="url" rel="index">
+                    <span itemprop="name">个人兴趣</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/17/ProXmoX-VE%E6%90%AD%E5%BB%BA%E5%AE%B6%E5%BA%AD%E5%A4%9A%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9AFrp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/17/ProXmoX-VE%E6%90%AD%E5%BB%BA%E5%AE%B6%E5%BA%AD%E5%A4%9A%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9AFrp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/05/17/ProXmoX-VE%E6%90%AD%E5%BB%BA%E5%AE%B6%E5%BA%AD%E5%A4%9A%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9AFrp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE/" class="leancloud_visitors" data-flag-title="ProXmoX VE搭建家庭多媒体服务器（二）：Frp内网穿透实现外网访问">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、为什么要内网穿透"><a href="#一、为什么要内网穿透" class="headerlink" title="一、为什么要内网穿透"></a>一、为什么要内网穿透</h1><p>当然是为了方便管理啦，最好是只要在有公网的地方就可以访问家里的服务器！</p>
+<p>其实之前用过<code>ZeroTier one</code>觉得已经很强大了，基本满足了日常应用场景，优势显而易见：</p>
+<ul>
+<li>简单，搭建成本低，一条指令就可以搭建起来；</li>
+<li>全平台支持，什么<code>Linux</code>、<code>Android</code>、<code>Windows</code>、<code>MAC OS</code>等等都能很好的支持；</li>
+<li>稳定性可观，<code>UDP</code>打洞成功的话基本能实现P2P连接，速度仅由双方带宽决定，很不错；</li>
+<li>操作简单，管理界面友好，<code>zerotier central</code>接管所有用户；</li>
+</ul>
+<p>当然缺陷也是有的，不然我也不会放弃ta是吧：</p>
+<ul>
+<li>UDP打洞不成功的话就基本不可用了，其实<code>zerotier</code>也是有代理的（打洞失败就启用），只是在国外而已，慢，你懂的；</li>
+<li>官方在1.10版本之后其实推出了自建代理，称之为<code>moon</code>，但是搭建起来复杂不说，成功率不高，摔；（可能是我愚笨，如果有高人成功了可以指点下）</li>
+<li>很多情况下无法打洞成功，非同城网络、多级路由、复杂网络、移动热点貌似这些都可能会导致无法连通。</li>
+</ul>
+<p>总之公司网络和我的移动手机热点都不行，果断放弃。</p>
+<p>后来又考察了市面上简单的内网穿透方案，<code>花生壳</code>、<code>蒲公英</code>，这些商业公司做的限制太多，被限制了就很蛋疼了，不爽，免费的东西也要吃了不拉肚子啊，果断找自己搭建的，即使麻烦点，用着爽才是硬道理，生命在于折腾。</p>
+<p>比较火的几个方案<code>Ngrok</code>、<code>Natapp</code>、<code>Lanproxy</code>、<code>Frp</code>，最终选择了<code>Frp</code>，觉得最适合也是最好用，还开源，这里都给大家简单介绍下：</p>
+<h2 id="Ngrok"><a href="#Ngrok" class="headerlink" title="Ngrok"></a>Ngrok</h2><ul>
+<li>项目主页：<a target="_blank" rel="noopener" href="https://ngrok.com/">https://ngrok.com/</a></li>
+<li>项目介绍： 一个通过任何<code>NAT</code>或防火墙为您的本地主机服务器提供即时访问、安全的URL的命令。类似花生壳，分为服务端和客户端，也可以自己搭建服务端。</li>
+<li>使用教程：<a target="_blank" rel="noopener" href="https://yangqiang.im/?p=750">点击跳转</a></li>
+</ul>
+<h2 id="Ssh"><a href="#Ssh" class="headerlink" title="Ssh"></a>Ssh</h2><p><em>配合autossh工具使用，因为autossh会容错</em></p>
+<ul>
+<li>项目主页：<a target="_blank" rel="noopener" href="http://www.harding.motd.ca/autossh/">http://www.harding.motd.ca/autossh/</a></li>
+<li>项目介绍：自动重新启动<code>SSH</code>会话和隧道。autossh是一个程序，用于启动ssh的副本并进行监控，在死亡或停止传输流量时根据需要重新启动它。 这个想法来自<code>rstunnel（Reliable SSH Tunnel）</code>，但是在C中实现。作者的观点是，它不像匆匆忙忙的工作那么容易。使用端口转发环路或远程回显服务进行连接监视。在遇到连接拒绝等快速故障时，关闭连接尝试的速度。在OpenBSD，Linux，Solaris，Mac OS X，Cygwin和AIX上编译和测试; 应该在其他BSD上工作。免费软件。</li>
+<li>使用教程：<a target="_blank" rel="noopener" href="http://www.yangqiang.im/?p=698">点击跳转</a></li>
+</ul>
+<h2 id="Natapp"><a href="#Natapp" class="headerlink" title="Natapp"></a>Natapp</h2><ul>
+<li>项目主页：<a target="_blank" rel="noopener" href="https://natapp.cn/">https://natapp.cn/</a></li>
+<li>项目介绍：基于ngrok的国内收费内网穿透工具，类似花生壳，有免费版本，比花生壳好。免费版本：提供http,https,tcp全隧道穿透，随机域名/TCP端口，不定时强制更换域名/端口，自定义本地端口</li>
+</ul>
+<h2 id="Frp"><a href="#Frp" class="headerlink" title="Frp"></a>Frp</h2><ul>
+<li>项目主页：<a target="_blank" rel="noopener" href="https://github.com/fatedier/frp">https://github.com/fatedier/frp</a></li>
+<li>项目介绍：frp 是一个可用于内网穿透的高性能的反向代理应用，支持 <code>tcp</code>, <code>udp</code>, <code>http</code>, <code>https</code> 协议。利用处于内网或防火墙后的机器，对外网环境提供 http 或 https 服务。对于 http, https 服务支持基于域名的虚拟主机，支持自定义域名绑定，使多个域名可以共用一个80端口。利用处于内网或防火墙后的机器，对外网环境提供 tcp 和 udp 服务，例如在家里通过 ssh 访问处于公司内网环境内的主机。</li>
+</ul>
+<h2 id="Lanproxy"><a href="#Lanproxy" class="headerlink" title="Lanproxy"></a>Lanproxy</h2><ul>
+<li>项目主页：<a target="_blank" rel="noopener" href="https://github.com/ffay/lanproxy">https://github.com/ffay/lanproxy</a></li>
+<li>项目介绍：lanproxy是一个将局域网个人电脑、服务器代理到公网的内网穿透工具，目前仅支持tcp流量转发，可支持任何tcp上层协议（访问内网网站、本地支付接口调试、ssh访问、远程桌面…）。目前市面上提供类似服务的有花生壳、TeamView、GoToMyCloud等等，但要使用第三方的公网服务器就必须为第三方付费，并且这些服务都有各种各样的限制，此外，由于数据包会流经第三方，因此对数据安全也是一大隐患。</li>
+</ul>
+<h2 id="Spike"><a href="#Spike" class="headerlink" title="Spike"></a>Spike</h2><ul>
+<li>项目主页：<a target="_blank" rel="noopener" href="https://github.com/slince/spike">https://github.com/slince/spike</a></li>
+<li>项目介绍：Spike是一个可以用来将你的内网服务暴露在公网的快速的反向代理，基于<code>ReactPHP</code>，采用IO多路复用模型。采用Php实现。</li>
+</ul>
+<h2 id="花生壳"><a href="#花生壳" class="headerlink" title="花生壳"></a>花生壳</h2><ul>
+<li>项目主页：<a target="_blank" rel="noopener" href="https://hsk.oray.com/">https://hsk.oray.com/</a></li>
+<li>项目介绍：商业化比较成功的内网穿透。个人开发很不推荐，收费贵，企业可以考虑使用。</li>
+</ul>
+<p><code>frp</code>内网穿透比<code>ngrok</code>要简单的多，无需多复杂的配置就可以达到比较好的穿透效果，扩展性也很强。</p>
+<p>注意：用国内服务器搭建，需要域名备案才能使用<code>（划重点）</code></p>
+<h1 id="二、Frp配置说明"><a href="#二、Frp配置说明" class="headerlink" title="二、Frp配置说明"></a>二、Frp配置说明</h1><p>前面说了这么多理由，话不说，现在我们来操作吧</p>
+<h2 id="1、实现功能"><a href="#1、实现功能" class="headerlink" title="1、实现功能"></a>1、实现功能</h2><p>（1）外网通过ssh访问内网机器<br>（2）自定义绑定域名访问内网web服务<br>（3）外网访问PVE建的交接系统的服务</p>
+<h2 id="2、配置前准备"><a href="#2、配置前准备" class="headerlink" title="2、配置前准备"></a>2、配置前准备</h2><p>（1）公网服务器1台（我这里用的阿里云ECS）<br>（2）内网服务器1台（我的就是PVE服务器啦）<br>（3）公网服务器绑定域名1个（方便访问搞个域名）<br>（4）内网服务器部署一个web服务（测试用，我这就是PVE的https界面）</p>
+<h1 id="三、安装Frp"><a href="#三、安装Frp" class="headerlink" title="三、安装Frp"></a>三、安装Frp</h1><h2 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h2><p>1、公网服务器与内网服务器都需要下载frp进行安装</p>
+<p>2、下载地址是<a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/releases">https://github.com/fatedier/frp/releases</a></p>
+<p>也可以通过命令下载：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/fatedier/frp/releases/download/v0.16.1/frp_0.16.1_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>3.在WINDOWS下用<code>winscp</code>软件登录，上传<code>frp_0.16.1_linux_amd64.tar.gz</code>至<code>root</code>目录</p>
+<p>4.解压文件：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf frp_0.16.1_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注：<code>frps</code>、<code>frps.ini</code>这个两个是服务端文件，<code>frpc</code>、<code>frpc.ini</code>这两个是客户端文件</p>
+</blockquote>
+<h2 id="配置服务端"><a href="#配置服务端" class="headerlink" title="配置服务端"></a>配置服务端</h2><blockquote>
+<p>非常重要——由于公网服务端作为中转，千万记得端口放行和防火墙关闭，千万记得端口放行和防火墙关闭，千万记得端口放行和防火墙关闭，重要的事情说三遍，<code>划重点</code>！</p>
+</blockquote>
+<p>1.进入解压目录：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd frp_0.16.1_linux_amd64</span><br></pre></td></tr></table></figure><br>frps、frps.ini这个两个是服务端文件，frpc、frpc.ini这两个是客户端文件</p>
+<p>2.修改参数：</p>
+<p><code>vi ./frps.ini</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">vhost_http_port = 8090</span><br><span class="line">vhost_https_port = 4430</span><br></pre></td></tr></table></figure>
+<p><code>bind_port</code>为客户端与服务端进行通信的端口，<code>vhost_http_port</code>为服务端http服务的端口。其它更丰富的配置可参考<code>frps_full.ini</code>和项目帮助文档。</p>
+<p>按”i”键进行编辑，按<code>“esc”</code>退出编辑状态，输入<code>“:wq”</code>退出</p>
+<h2 id="启动服务端"><a href="#启动服务端" class="headerlink" title="启动服务端"></a>启动服务端</h2><p><strong><em>临时启动</em></strong><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frps -c ./frps.ini</span><br></pre></td></tr></table></figure><br><img src="http://cdn.pidaye.top/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8Chttp%E8%AE%BF%E9%97%AE%20-%20%E7%AE%80%E4%B9%A6.webp" alt="手把手教你用frp实现内网穿透，进行远程桌面和http访问 - 简书"></p>
+<p>公网服务端搭建成功</p>
+<p><strong><em>设置开机启动和后台运行</em></strong></p>
+<p>上一步中的frps占据了整个命令窗口，所以接下来要考虑如何让它在后台运行并且开机自启：<br>首先通过<code>vi /etc/systemd/system/frps.service</code>命令新建文件并写入以下内容:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=frps daemon</span><br><span class="line">After=syslog.target  network.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/frp/frp_0.16.0_linux_386/frps -c /usr/frp/frp_0.16.0_linux_386/frps.ini</span><br><span class="line">Restart= always</span><br><span class="line">RestartSec=1min</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>注意<code>ExecStart</code>中要配置成自己的路径。</p>
+<p>然后使用<code>systemctl start frps</code>即可启动<code>frps</code>, 用<code>systemctl enable frps</code>即可将<code>frps</code>设置为开机启动。</p>
+<h2 id="配置客户端"><a href="#配置客户端" class="headerlink" title="配置客户端"></a>配置客户端</h2><p><code>vi ./frpc.ini</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">[common]  </span><br><span class="line">server_addr = 120.56.37.48      #公网服务器ip  </span><br><span class="line">server_port = 7000              #与服务端bind_port一致  </span><br><span class="line"></span><br><span class="line">#公网通过ssh访问内部服务器  </span><br><span class="line">[ssh]  </span><br><span class="line">type = tcp                      #连接协议  </span><br><span class="line">local_ip = 127.0.0.1            #内网服务器ip  </span><br><span class="line">local_port = 22                 #ssh默认端口号  </span><br><span class="line">remote_port = 6022              #自定义的访问内部ssh端口号  </span><br><span class="line"></span><br><span class="line">#公网访问内部web服务器以http方式  </span><br><span class="line">[web]  </span><br><span class="line">type = https                     #访问协议</span><br><span class="line">local_ip = 127.0.0.1            #内网服务器ip</span><br><span class="line">local_port = 8006                 #内网web服务的端口号  </span><br><span class="line">custom_domains = www.veelove.cn,veelove.cn   </span><br><span class="line"></span><br><span class="line">[nasweb]</span><br><span class="line">type = http                     </span><br><span class="line">local_ip = 192.168.10.215       #内网桥接nas web的IP</span><br><span class="line">local_port = 5000               #群晖NAS登陆地址端口是5000</span><br><span class="line">custom_domains = nas.veelove.cn</span><br><span class="line"></span><br><span class="line">[nasphoto]</span><br><span class="line">type = tcp                      #协议为TCP协议</span><br><span class="line">local_ip = 192.168.10.216</span><br><span class="line">local_port = 80</span><br><span class="line">remote_port = 8000              #需要做一个端口转发才可以实现APP登陆，端口自定义</span><br><span class="line">custom_domains = photo.veelove.cn</span><br><span class="line"></span><br><span class="line">[lede]</span><br><span class="line">type = http                     #协议为http</span><br><span class="line">local_ip = 192.168.10.254       #保持不变，如果您更换过lede后台地址，请自行修改</span><br><span class="line">local_port = 80</span><br><span class="line">custom_domains = lede.veelove.cn #更换为自己的域名</span><br><span class="line"></span><br><span class="line">[esxi]</span><br><span class="line">type = https #协议为https</span><br><span class="line">local_ip = 192.168.1.101 #更换为自己esxi后台管理地址</span><br><span class="line">local_port = 443</span><br><span class="line">custom_domains = esxi.veelove.cn #更换为自己的域名</span><br><span class="line"></span><br><span class="line">[dsphoto]</span><br><span class="line">type = tcp #协议为tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 80</span><br><span class="line">remote_port = 8000 #转发端口可以自己设定</span><br><span class="line">custom_domains = photo.veelove.cn #更换为自己的域名</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：所绑定的公网服务器域名，一级、二级域名都可以，绑定多个域名时用英文<code>“,”</code>分开</p>
+</blockquote>
+<h2 id="启动客户端"><a href="#启动客户端" class="headerlink" title="启动客户端"></a>启动客户端</h2><p><strong><em>临时启动</em></strong></p>
+<p><code>./frps -c ./frps.ini</code></p>
+<p><img src="http://cdn.pidaye.top/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8frp%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%EF%BC%8C%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8Chttp%E8%AE%BF%E9%97%AE%20-%20%E7%AE%80%E4%B9%A6.webp" alt="手把手教你用frp实现内网穿透，进行远程桌面和http访问 - 简书"></p>
+<p>公网服务端搭建成功</p>
+<p><strong><em>设置开机启动和后台运行</em></strong></p>
+<p>上一步中的frps占据了整个命令窗口，所以接下来要考虑如何让它在后台运行并且开机自启：<br>首先通过<code>vi /etc/systemd/system/frpc.service</code>命令新建文件并写入以下内容:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=frpc daemon</span><br><span class="line">After=syslog.target  network.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/frp/frp_0.16.0_linux_386/frpc -c /usr/frp/frp_0.16.0_linux_386/frpc.ini</span><br><span class="line">Restart= always</span><br><span class="line">RestartSec=1min</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>注意<code>ExecStart</code>中要配置成自己的路径。</p>
+<p>然后使用<code>systemctl start frpc</code>即可启动<code>frpc</code>, 用<code>systemctl enable frpc</code>即可将<code>frpc</code>设置为开机启动。</p>
+<h1 id="四、穿透公司代理内网-有需要时使用"><a href="#四、穿透公司代理内网-有需要时使用" class="headerlink" title="四、穿透公司代理内网(有需要时使用)"></a>四、穿透公司代理内网(有需要时使用)</h1><h2 id="1-修改服务端配置文件"><a href="#1-修改服务端配置文件" class="headerlink" title="1.修改服务端配置文件"></a>1.修改服务端配置文件</h2><p><code>vi ./frps.ini</code><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 443        #端口号修改为443</span><br><span class="line">vhost_http_port = 80    #访问客户端web服务自定义的端口号</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-修改客户端配置文件"><a href="#2-修改客户端配置文件" class="headerlink" title="2.修改客户端配置文件"></a>2.修改客户端配置文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ./frpc.ini</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 118.24.127.138</span><br><span class="line">server_port = 443                            #端口号修改为443</span><br><span class="line">http_proxy = http://10.168.57.241:8088       #加入公司代理地址</span><br><span class="line"></span><br><span class="line">[ssh]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 22</span><br><span class="line">remote_port = 6000</span><br><span class="line"></span><br><span class="line">[web]</span><br><span class="line">type = http</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 80</span><br><span class="line">custom_domains = www.veelove.cn</span><br></pre></td></tr></table></figure>
+<p>服务端与客户端启动方式不变</p>
+<h1 id="五、进阶设置（P2P）"><a href="#五、进阶设置（P2P）" class="headerlink" title="五、进阶设置（P2P）"></a>五、进阶设置（P2P）</h1><h2 id="点对点内网穿透"><a href="#点对点内网穿透" class="headerlink" title="点对点内网穿透"></a>点对点内网穿透</h2><blockquote>
+<p>这里可以使用zerotier的方案，搭建更简单一些效果差不多，下面是frp的点对点方案</p>
+</blockquote>
+<p><code>frp</code> 提供了一种新的代理类型 <code>xtcp</code> 用于应对在希望传输大量数据且流量不经过服务器的场景。</p>
+<p>使用方式同 <code>stcp</code> 类似，需要在两边都部署上 <code>frpc</code> 用于建立直接的连接。</p>
+<p>目前处于开发的初级阶段，并不能穿透所有类型的 <code>NAT</code> 设备，所以穿透成功率较低。穿透失败时可以尝试 <code>stcp</code> 的方式。</p>
+<p><code>frps</code> 除正常配置外需要额外配置一个 <code>udp</code> 端口用于支持该类型的客户端:<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bind_udp_port = 7001</span><br></pre></td></tr></table></figure><br>启动 frpc，转发内网的 <code>ssh</code> 服务，配置如下，不需要指定远程端口:<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># frpc.ini</span><br><span class="line">[common]</span><br><span class="line">server_addr = x.x.x.x</span><br><span class="line">server_port = 7000</span><br><span class="line"></span><br><span class="line">[p2p_ssh]</span><br><span class="line">type = xtcp</span><br><span class="line"># 只有 sk 一致的用户才能访问到此服务</span><br><span class="line">sk = abcdefg</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 22</span><br></pre></td></tr></table></figure></p>
+<p>在要访问这个服务的机器上启动另外一个 frpc，配置如下:<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># frpc.ini</span><br><span class="line">[common]</span><br><span class="line">server_addr = x.x.x.x</span><br><span class="line">server_port = 7000</span><br><span class="line"></span><br><span class="line">[p2p_ssh_visitor]</span><br><span class="line">type = xtcp</span><br><span class="line"># xtcp 的访问者</span><br><span class="line">role = visitor</span><br><span class="line"># 要访问的 xtcp 代理的名字</span><br><span class="line">server_name = p2p_ssh</span><br><span class="line">sk = abcdefg</span><br><span class="line"># 绑定本地端口用于访问 ssh 服务</span><br><span class="line">bind_addr = 127.0.0.1</span><br><span class="line">bind_port = 6000</span><br></pre></td></tr></table></figure></p>
+<p>通过 ssh 访问内网机器，假设用户名为 test:<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -oPort=6000 test@127.0.0.1</span><br></pre></td></tr></table></figure></p>
+<h1 id="附加文档：群晖NAS使用frp穿透服务"><a href="#附加文档：群晖NAS使用frp穿透服务" class="headerlink" title="附加文档：群晖NAS使用frp穿透服务"></a>附加文档：群晖NAS使用frp穿透服务</h1><blockquote>
+<p>（针对单独开穿透的群辉系统，如果前面都是桥接可以直接在PVE客户端加上所有服务即可）</p>
+</blockquote>
+<h2 id="设置ROOT密码，获取群晖的ROOT权限"><a href="#设置ROOT密码，获取群晖的ROOT权限" class="headerlink" title="设置ROOT密码，获取群晖的ROOT权限"></a>设置ROOT密码，获取群晖的ROOT权限</h2><p>1.打开控制面板,开启SSH功能</p>
+<p><img src="http://cdn.pidaye.top/FE841EBA-76C5-48E7-B063-351ECE53453F%201133%C3%97725.jpg" alt="FE841EBA-76C5-48E7-B063-351ECE53453F 1133×725"></p>
+<p>2.终端输入命令ssh <a href="mailto:admin@192.168.1.201">admin@192.168.1.201</a>登录，密码为群辉NAS的用户密码（地址修改为自己的NAS地址，win用户用Putty这个软件登录）</p>
+<p><img src="http://cdn.pidaye.top/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7-2018-03-28-%E4%B8%8B%E5%8D%883.30.17%201142%C3%97732.png" alt="屏幕快照-2018-03-28-下午3.30.17 1142×732"></p>
+<p>3.输入命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -i</span><br></pre></td></tr></table></figure>
+<p>4.设置root密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">synouser --setpw root XXX</span><br></pre></td></tr></table></figure>
+<p>【XXX便是你要修改的密码】</p>
+<h2 id="客户端调试"><a href="#客户端调试" class="headerlink" title="客户端调试"></a>客户端调试</h2><h3 id="1-使用root用户登录群晖6-1"><a href="#1-使用root用户登录群晖6-1" class="headerlink" title="1.使用root用户登录群晖6.1"></a>1.使用root用户登录群晖6.1</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@192.168.1.201</span><br></pre></td></tr></table></figure>
+<p>(地址修改为自己的群晖NAS地址)</p>
+<h3 id="2-群晖NAS登陆后台配置文件"><a href="#2-群晖NAS登陆后台配置文件" class="headerlink" title="2.群晖NAS登陆后台配置文件"></a>2.群晖NAS登陆后台配置文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 118.24.127.138</span><br><span class="line">server_port = 7000</span><br><span class="line"></span><br><span class="line">[ssh]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 22</span><br><span class="line">remote_port = 6000</span><br><span class="line"></span><br><span class="line">[nasweb]  </span><br><span class="line">type = http                   </span><br><span class="line">local_ip = 127.0.0.1           </span><br><span class="line">local_port = 5000                     #群晖NAS登陆地址端口是5000</span><br><span class="line">custom_domains = nas.veelove.cn</span><br></pre></td></tr></table></figure>
+<h3 id="2-使用群晖NAS手机APP的DS-photo软件在外网访问配置文件"><a href="#2-使用群晖NAS手机APP的DS-photo软件在外网访问配置文件" class="headerlink" title="2.使用群晖NAS手机APP的DS photo软件在外网访问配置文件"></a>2.使用群晖NAS手机APP的DS photo软件在外网访问配置文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 118.24.127.138</span><br><span class="line">server_port = 7000</span><br><span class="line"></span><br><span class="line">[ssh]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 22</span><br><span class="line">remote_port = 6000</span><br><span class="line"></span><br><span class="line">[nasweb]  </span><br><span class="line">type = http                   </span><br><span class="line">local_ip = 127.0.0.1           </span><br><span class="line">local_port = 5000                     #群晖NAS登陆地址端口是5000</span><br><span class="line">custom_domains = nas.veelove.cn</span><br><span class="line"></span><br><span class="line">[nasphoto]  </span><br><span class="line">type = tcp                             #协议为TCP协议</span><br><span class="line">local_ip = 127.0.0.1           </span><br><span class="line">local_port = 80</span><br><span class="line">remote_port = 8000                    #需要做一个端口转发才可以实现APP登陆，端口自定义</span><br><span class="line">custom_domains = photo.veelove.cn</span><br></pre></td></tr></table></figure>
+<h2 id="外网访问esxi后台管理、群晖NAS、群晖NAS客户端DS-Photo、LEDE软路由后台"><a href="#外网访问esxi后台管理、群晖NAS、群晖NAS客户端DS-Photo、LEDE软路由后台" class="headerlink" title="外网访问esxi后台管理、群晖NAS、群晖NAS客户端DS Photo、LEDE软路由后台"></a>外网访问esxi后台管理、群晖NAS、群晖NAS客户端DS Photo、LEDE软路由后台</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 118.24.127.138             #更换为自己服务器IP地址</span><br><span class="line">server_port = 7000</span><br><span class="line"></span><br><span class="line">[lede]</span><br><span class="line">type = http                              #协议为http</span><br><span class="line">local_ip = 192.168.1.1                   #保持不变，如果您更换过lede后台地址，请自行修改</span><br><span class="line">local_port = 80</span><br><span class="line">custom_domains = lede.veelove.cn         #更换为自己的域名</span><br><span class="line"></span><br><span class="line">[esxi]</span><br><span class="line">type = https                             #协议为https</span><br><span class="line">local_ip = 192.168.1.101                 #更换为自己esxi后台管理地址</span><br><span class="line">local_port = 443</span><br><span class="line">custom_domains = esxi.veelove.cn         #更换为自己的域名</span><br><span class="line"></span><br><span class="line">[dsphoto]</span><br><span class="line">type = tcp                               #协议为tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 80</span><br><span class="line">remote_port = 8000                       #转发端口可以自己设定</span><br><span class="line">custom_domains = photo.veelove.cn        #更换为自己的域名</span><br><span class="line"></span><br><span class="line">[dsm]</span><br><span class="line">type = http                              #协议为http</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 5000</span><br><span class="line">custom_domains = nas.veelove.cn          #更换为自己的域名</span><br></pre></td></tr></table></figure>
+<h2 id="如何让Frp在群晖中自动开机运行"><a href="#如何让Frp在群晖中自动开机运行" class="headerlink" title="如何让Frp在群晖中自动开机运行"></a>如何让Frp在群晖中自动开机运行</h2><h3 id="1-进入群晖控制面板》任务计划》新增》触发任务》用户定义的脚本"><a href="#1-进入群晖控制面板》任务计划》新增》触发任务》用户定义的脚本" class="headerlink" title="1.进入群晖控制面板》任务计划》新增》触发任务》用户定义的脚本"></a>1.进入群晖控制面板》任务计划》新增》触发任务》用户定义的脚本</h3><p><img src="http://cdn.pidaye.top/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7-2018-04-23-%E4%B8%8A%E5%8D%887.58.15%20998%C3%97568.png" alt="屏幕快照-2018-04-23-上午7.58.15 998×568"></p>
+<h3 id="2-添加脚本"><a href="#2-添加脚本" class="headerlink" title="2.添加脚本"></a>2.添加脚本</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/root/frp/frpc -c /root/frp/frpc.ini</span><br></pre></td></tr></table></figure>
+<p>上面的frp修改为你frp目录的文件名称，我在视频里面建议是修改为frp方便记忆</p>
+<p><img src="http://cdn.pidaye.top/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7-2018-04-23-%E4%B8%8A%E5%8D%888.11.45%201005%C3%97574.png" alt="屏幕快照-2018-04-23-上午8.11.45 1005×574"></p>
+<h3 id="3-按照下图的序号号顺序操作，重启群晖NAS即可"><a href="#3-按照下图的序号号顺序操作，重启群晖NAS即可" class="headerlink" title="3.按照下图的序号号顺序操作，重启群晖NAS即可"></a>3.按照下图的序号号顺序操作，重启群晖NAS即可</h3><p><img src="http://cdn.pidaye.top/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7-2018-04-23-%E4%B8%8A%E5%8D%887.59.51%20996%C3%97568.png" alt="屏幕快照-2018-04-23-上午7.59.51 996×568"></p>
+
+      
+    </div>
+	<div>
+      
+        ﻿
+      
+	</div>
+	<div>
+      
+          ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+              ----------本文结束<i class="fa fa-paw"></i>感谢您的阅读----------
+        </div>
+    
+</div>
+      
+	</div>
+    
+    
+    
+
+    
+
+    
+
+    
+		
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pve/" rel="tag"><i class="fa fa-tag"></i> pve</a>
+          
+            <a href="/tags/frp/" rel="tag"><i class="fa fa-tag"></i> frp</a>
+          
+            <a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" rel="tag"><i class="fa fa-tag"></i> 内网穿透</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/15/ProXmoX-VE%E6%90%AD%E5%BB%BA%E5%AE%B6%E5%BA%AD%E5%A4%9A%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AProXmoX-VE-%E5%AE%89%E8%A3%85%E5%8F%8A%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/" rel="next" title="ProXmoX VE搭建家庭多媒体服务器（一）：ProXmoX VE 安装及基础配置">
+                <i class="fa fa-chevron-left"></i> ProXmoX VE搭建家庭多媒体服务器（一）：ProXmoX VE 安装及基础配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/20/Linux%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ALinux%E5%AE%9A%E6%97%B6%E8%AE%A1%E5%88%92%E5%92%8C%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E9%A1%B9/" rel="prev" title="Linux学习记录（三）：Linux定时计划和开机启动项">
+                Linux学习记录（三）：Linux定时计划和开机启动项 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ddhsa" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ddhsa@126.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.uisdc.com/" title="优设" target="_blank">优设</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.liaoxuefeng.com/" title="廖雪峰" target="_blank">廖雪峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://translate.google.cn" title="谷歌翻译" target="_blank">谷歌翻译</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://tool.oschina.net/codeformat/json" title="代码格式转换" target="_blank">代码格式转换</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.jq22.com/textDifference" title="文本对比" target="_blank">文本对比</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.aconvert.com/cn/" title="文件转换" target="_blank">文件转换</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="nav-number">1.</span> <span class="nav-text">一、为什么要内网穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ngrok"><span class="nav-number">1.1.</span> <span class="nav-text">Ngrok</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ssh"><span class="nav-number">1.2.</span> <span class="nav-text">Ssh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Natapp"><span class="nav-number">1.3.</span> <span class="nav-text">Natapp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Frp"><span class="nav-number">1.4.</span> <span class="nav-text">Frp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lanproxy"><span class="nav-number">1.5.</span> <span class="nav-text">Lanproxy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spike"><span class="nav-number">1.6.</span> <span class="nav-text">Spike</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%B1%E7%94%9F%E5%A3%B3"><span class="nav-number">1.7.</span> <span class="nav-text">花生壳</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Frp%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">二、Frp配置说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%AE%9E%E7%8E%B0%E5%8A%9F%E8%83%BD"><span class="nav-number">2.1.</span> <span class="nav-text">1、实现功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E9%85%8D%E7%BD%AE%E5%89%8D%E5%87%86%E5%A4%87"><span class="nav-number">2.2.</span> <span class="nav-text">2、配置前准备</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85Frp"><span class="nav-number">3.</span> <span class="nav-text">三、安装Frp</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">下载文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">3.2.</span> <span class="nav-text">配置服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">3.3.</span> <span class="nav-text">启动服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">3.4.</span> <span class="nav-text">配置客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">3.5.</span> <span class="nav-text">启动客户端</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%A9%BF%E9%80%8F%E5%85%AC%E5%8F%B8%E4%BB%A3%E7%90%86%E5%86%85%E7%BD%91-%E6%9C%89%E9%9C%80%E8%A6%81%E6%97%B6%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">四、穿透公司代理内网(有需要时使用)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BF%AE%E6%94%B9%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">1.修改服务端配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.2.</span> <span class="nav-text">2.修改客户端配置文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E8%BF%9B%E9%98%B6%E8%AE%BE%E7%BD%AE%EF%BC%88P2P%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">五、进阶设置（P2P）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E5%AF%B9%E7%82%B9%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="nav-number">5.1.</span> <span class="nav-text">点对点内网穿透</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%8A%A0%E6%96%87%E6%A1%A3%EF%BC%9A%E7%BE%A4%E6%99%96NAS%E4%BD%BF%E7%94%A8frp%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1"><span class="nav-number">6.</span> <span class="nav-text">附加文档：群晖NAS使用frp穿透服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEROOT%E5%AF%86%E7%A0%81%EF%BC%8C%E8%8E%B7%E5%8F%96%E7%BE%A4%E6%99%96%E7%9A%84ROOT%E6%9D%83%E9%99%90"><span class="nav-number">6.1.</span> <span class="nav-text">设置ROOT密码，获取群晖的ROOT权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B0%83%E8%AF%95"><span class="nav-number">6.2.</span> <span class="nav-text">客户端调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BD%BF%E7%94%A8root%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E7%BE%A4%E6%99%966-1"><span class="nav-number">6.2.1.</span> <span class="nav-text">1.使用root用户登录群晖6.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BE%A4%E6%99%96NAS%E7%99%BB%E9%99%86%E5%90%8E%E5%8F%B0%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">6.2.2.</span> <span class="nav-text">2.群晖NAS登陆后台配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8%E7%BE%A4%E6%99%96NAS%E6%89%8B%E6%9C%BAAPP%E7%9A%84DS-photo%E8%BD%AF%E4%BB%B6%E5%9C%A8%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">6.2.3.</span> <span class="nav-text">2.使用群晖NAS手机APP的DS photo软件在外网访问配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AEesxi%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E3%80%81%E7%BE%A4%E6%99%96NAS%E3%80%81%E7%BE%A4%E6%99%96NAS%E5%AE%A2%E6%88%B7%E7%AB%AFDS-Photo%E3%80%81LEDE%E8%BD%AF%E8%B7%AF%E7%94%B1%E5%90%8E%E5%8F%B0"><span class="nav-number">6.3.</span> <span class="nav-text">外网访问esxi后台管理、群晖NAS、群晖NAS客户端DS Photo、LEDE软路由后台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%A9Frp%E5%9C%A8%E7%BE%A4%E6%99%96%E4%B8%AD%E8%87%AA%E5%8A%A8%E5%BC%80%E6%9C%BA%E8%BF%90%E8%A1%8C"><span class="nav-number">6.4.</span> <span class="nav-text">如何让Frp在群晖中自动开机运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%BF%9B%E5%85%A5%E7%BE%A4%E6%99%96%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF%E3%80%8B%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92%E3%80%8B%E6%96%B0%E5%A2%9E%E3%80%8B%E8%A7%A6%E5%8F%91%E4%BB%BB%E5%8A%A1%E3%80%8B%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E7%9A%84%E8%84%9A%E6%9C%AC"><span class="nav-number">6.4.1.</span> <span class="nav-text">1.进入群晖控制面板》任务计划》新增》触发任务》用户定义的脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%B7%BB%E5%8A%A0%E8%84%9A%E6%9C%AC"><span class="nav-number">6.4.2.</span> <span class="nav-text">2.添加脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%8C%89%E7%85%A7%E4%B8%8B%E5%9B%BE%E7%9A%84%E5%BA%8F%E5%8F%B7%E5%8F%B7%E9%A1%BA%E5%BA%8F%E6%93%8D%E4%BD%9C%EF%BC%8C%E9%87%8D%E5%90%AF%E7%BE%A4%E6%99%96NAS%E5%8D%B3%E5%8F%AF"><span class="nav-number">6.4.3.</span> <span class="nav-text">3.按照下图的序号号顺序操作，重启群晖NAS即可</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ddhsa</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GFz2SbREPp2DMHW0QHPl94gg-gzGzoHsz',
+        appKey: 'oVifnPV3ed3m5YbcrBS9nP7F',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("GFz2SbREPp2DMHW0QHPl94gg-gzGzoHsz", "oVifnPV3ed3m5YbcrBS9nP7F");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

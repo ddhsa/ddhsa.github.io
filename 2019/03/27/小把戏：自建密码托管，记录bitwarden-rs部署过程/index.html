@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="docker,bitwarden," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="学无止境" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="声明：本次部署参考了my nook大神的部署方式，由于我是个小白，原文的部署方式的我来说还是不够细节，故重新整理了此文章部署过程，方便各位小伙伴参考，如有疑问欢迎各位在评论中提出。  缘起之所以用自建的密码托管服务器，还是因为我一直在用的密码管理lastpassword主密码忘记了，搞得我不得不找一个全平台、开源、好用、私有的密码管理方式，而且刚好同事也在研究自建密码托管，说有几种很好的部署方式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小把戏：自建密码托管，记录bitwarden_rs部署过程">
+<meta property="og:url" content="https://ddhsa.github.io/2019/03/27/%E5%B0%8F%E6%8A%8A%E6%88%8F%EF%BC%9A%E8%87%AA%E5%BB%BA%E5%AF%86%E7%A0%81%E6%89%98%E7%AE%A1%EF%BC%8C%E8%AE%B0%E5%BD%95bitwarden-rs%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:site_name" content="学无止境">
+<meta property="og:description" content="声明：本次部署参考了my nook大神的部署方式，由于我是个小白，原文的部署方式的我来说还是不够细节，故重新整理了此文章部署过程，方便各位小伙伴参考，如有疑问欢迎各位在评论中提出。  缘起之所以用自建的密码托管服务器，还是因为我一直在用的密码管理lastpassword主密码忘记了，搞得我不得不找一个全平台、开源、好用、私有的密码管理方式，而且刚好同事也在研究自建密码托管，说有几种很好的部署方式">
+<meta property="og:locale">
+<meta property="og:image" content="http://cdn.pidaye.top/wp-content/uploads/2019/03/bitwarden-web-vault-login-856%C3%97754.png">
+<meta property="og:image" content="http://cdn.pidaye.top/wp-content/uploads/2019/03/bitwarden-web-vault-register-824%C3%971158.png">
+<meta property="og:image" content="http://cdn.pidaye.top/wp-content/uploads/2019/03/bitwarden-import-940%C3%97584.png">
+<meta property="og:image" content="http://cdn.pidaye.top/wp-content/uploads/2019/03/bitwarden-client-login-748%C3%97754.png">
+<meta property="og:image" content="http://cdn.pidaye.top/wp-content/uploads/2019/03/bitwarden-client-settings-login-748%C3%97608.png">
+<meta property="article:published_time" content="2019-03-27T16:18:00.000Z">
+<meta property="article:modified_time" content="2022-05-06T08:19:28.893Z">
+<meta property="article:author" content="ddhsa">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="bitwarden">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.pidaye.top/wp-content/uploads/2019/03/bitwarden-web-vault-login-856%C3%97754.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://ddhsa.github.io/2019/03/27/小把戏：自建密码托管，记录bitwarden-rs部署过程/"/>
+
+
+
+
+
+  <title>小把戏：自建密码托管，记录bitwarden_rs部署过程 | 学无止境</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学无止境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">提升自己是亘古不变的真理</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ddhsa.github.io/2019/03/27/%E5%B0%8F%E6%8A%8A%E6%88%8F%EF%BC%9A%E8%87%AA%E5%BB%BA%E5%AF%86%E7%A0%81%E6%89%98%E7%AE%A1%EF%BC%8C%E8%AE%B0%E5%BD%95bitwarden-rs%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学无止境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">小把戏：自建密码托管，记录bitwarden_rs部署过程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-27T16:18:00+00:00">
+                2019-03-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-05-06T08:19:28+00:00">
+                2022-05-06
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">docker学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/27/%E5%B0%8F%E6%8A%8A%E6%88%8F%EF%BC%9A%E8%87%AA%E5%BB%BA%E5%AF%86%E7%A0%81%E6%89%98%E7%AE%A1%EF%BC%8C%E8%AE%B0%E5%BD%95bitwarden-rs%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/27/%E5%B0%8F%E6%8A%8A%E6%88%8F%EF%BC%9A%E8%87%AA%E5%BB%BA%E5%AF%86%E7%A0%81%E6%89%98%E7%AE%A1%EF%BC%8C%E8%AE%B0%E5%BD%95bitwarden-rs%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/03/27/%E5%B0%8F%E6%8A%8A%E6%88%8F%EF%BC%9A%E8%87%AA%E5%BB%BA%E5%AF%86%E7%A0%81%E6%89%98%E7%AE%A1%EF%BC%8C%E8%AE%B0%E5%BD%95bitwarden-rs%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B/" class="leancloud_visitors" data-flag-title="小把戏：自建密码托管，记录bitwarden_rs部署过程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>声明：本次部署参考了<a target="_blank" rel="noopener" href="https://blog.mynook.info/post/selfhost-bitwarden/" title="my nook">my nook</a>大神的部署方式，由于我是个小白，原文的部署方式的我来说还是不够细节，故重新整理了此文章部署过程，方便各位小伙伴参考，如有疑问欢迎各位在评论中提出。</p>
+</blockquote>
+<h1 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h1><p>之所以用自建的密码托管服务器，还是因为我一直在用的密码管理lastpassword主密码忘记了，搞得我不得不找一个<strong>全平台、开源、好用、私有</strong>的密码管理方式，而且刚好同事也在研究自建密码托管，说有几种很好的部署方式，综合网上的资料，偶然发现了<code>mynook</code>大神写的教程，发现大神的需求与我十分吻合，就是部署比较复杂，思前想后还是决定尝试下。</p>
+<p>当然部署过程发现很多问题，查阅了一些资料总算是部署好了，本文应该用到的方式还是比较简单的，需要敲代码的地方也很少，得益于宝塔便捷的管理功能，很多都是图形化，简单方便！</p>
+<p>如下便是整个部署流程：</p>
+<p>部署项目介绍：</p>
+<blockquote>
+<p>在 GitHub 上搜索时发现有人用 <a target="_blank" rel="noopener" href="https://www.rust-lang.org/en-US/">Rust</a> 实现了 Bitwarden 服务器，项目叫做 <a target="_blank" rel="noopener" href="https://github.com/dani-garcia/bitwarden_rs">bitwarden_rs</a>，并且提供了 Docker 镜像。这个实现更进一步降低了对机器配置的要求，并且 Docker 镜像体积很小，部署非常方便。此外，官方服务器中需要付费订阅的一些功能，在这个实现中是免费的。</p>
+</blockquote>
+<hr>
+<h1 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h1><p>你需要有一个域名。 机器上需要有 Docker 环境。具体参考 <a target="_blank" rel="noopener" href="https://docs.docker-cn.com/engine/installation/linux/docker-ce/centos/#使用镜像仓库进行安装">Docker 官方文档</a>来安装 Docker-CE。<br>以下是简单的部署方式:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install /path/to/package.rpm</span><br><span class="line">sudo systemctl start docker</span><br><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+<p>此外，本文使用 docker-compose 来管理服务，参考 <a target="_blank" rel="noopener" href="https://docs.docker.com/compose/install/">docker-compose 的官方文档</a>来安装。在 Linux 上可以一行命令安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<p>如果要更新 docker-compose，也可以直接使用这条命令，只需要修改版本号为最新的 docker-compose 版本号。</p>
+<p>最后就是安装bitwarden_rs：<br>可参考<a target="_blank" rel="noopener" href="https://github.com/dani-garcia/bitwarden_rs" title="bitwarden_rs">bitwarden_rs</a>中的文档</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mprasil/bitwarden:latest</span><br></pre></td></tr></table></figure>
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p>假设你准备在主目录中存放数据，新建一个目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~ &amp;&amp; mkdir bitwarden &amp;&amp; cd bitwarden</span><br><span class="line">pwd</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">应当输出 /home/username/bitwarden</span></span><br></pre></td></tr></table></figure>
+<p>准备一个配置文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cat &gt;&gt; config.env &lt;&lt;EOF</span><br><span class="line">SIGNUPS_ALLOWED=true</span><br><span class="line">DOMAIN=https://example.com</span><br><span class="line">DATABASE_URL=/data/bitwarden.db</span><br><span class="line">ROCKET_WORKERS=10</span><br><span class="line">WEB_VAULT_ENABLED=true</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p>以上配置文件的说明：</p>
+<ul>
+<li><code>SIGNUPS_ALLOWED</code> 控制是否开放用户注册，因为你必须先注册才能存储数据，所以暂且先打开；</li>
+<li><code>DOMAIN</code> 填入你准备分配给 Bitwarden 服务使用的域名；</li>
+<li><code>DATABASE_URL</code> 设置数据库在容器内的路径，你可以不设置，默认位于 <code>/data/db.sqlite3</code>；</li>
+<li><code>ROCKET_WORKERS</code> 设置服务器使用几个线程。10 是默认值，你可以根据机器性能和个人需求适当调整；</li>
+<li><code>WEB_VAULT_ENABLED</code> 设置是否开启 Web 客户端。如果开启，可以通过访问你的域名来打开 Web 客户端，用户登录后即可通过网页管理密码。因为注册用户需要，所以也暂且先打开；</li>
+</ul>
+<p>准备服务描述文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cat &gt;&gt; docker-compose.yml &lt;&lt;EOF</span><br><span class="line">version: &#x27;3&#x27;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  bitwarden:</span><br><span class="line">    image: mprasil/bitwarden:latest</span><br><span class="line">    container_name: bitwarden</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - ./data:/data</span><br><span class="line">    env_file:</span><br><span class="line">      - config.env</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;6666:80&quot;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p>这个文件主要描述了这些内容：</p>
+<ul>
+<li><code>bitwarden</code> 现在是唯一一个服务；</li>
+<li><code>image: mprasil/bitwarden:latest</code> 指定使用 Docker Hub 的 <code>mprasil/bitwarden</code> 最新镜像；</li>
+<li><code>volumes</code> 中指定将容器内的 <code>/data</code> 目录挂载到宿主机的当前目录下的 <code>data</code> 目录，这样你可以在宿主机上执行数据库的备份操作；</li>
+<li><code>ports</code> 指定将容器内的 80 端口映射到了宿主机的 6666 端口；</li>
+</ul>
+<p>以后对 bitwarden 服务做的所有操作，都需要预先进入这两个配置文件所在的目录内。</p>
+<h1 id="反向代理和-HTTPS、启动服务"><a href="#反向代理和-HTTPS、启动服务" class="headerlink" title="反向代理和 HTTPS、启动服务"></a>反向代理和 HTTPS、启动服务</h1><blockquote>
+<p>因为服务描述文件中将 bitwarden 服务的 80 端口映射到了宿主机的 6666 端口，你可以在宿主机上使用 nginx 或其他反向代理，为你的域名配置对应的代理规则，使得访问域名时，流量可以经由 bitwarden 服务来处理。使用 nginx 的配置文件部分内容如下：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    proxy_pass http://127.0.0.1:6666;</span><br><span class="line">    proxy_set_header Host $http_host;</span><br><span class="line">     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注：以上是大佬的原文，实际操作还是很复杂的，在这里可以用宝塔自带的配置下我们的域名网站：<br>1、建立网站，用你准备的那个域名常规建站（我这里用的WEB服务器是Nginx）<br>2、设置反向代理，即将自己的域名代理到内部127.0.0.1:6666上（注意在防火墙中开放你的端口）<br>3、最后配置HTTPS，可直接在网站设置里面导入证书，证书可以免费在阿里云上获取</p>
+<blockquote>
+<p><strong>此外，现在是 2018 年，还请为域名配置 HTTPS 证书，并将 HTTP 流量阻挡或重定向到 HTTPS。这是对数据安全的基本尊重。</strong>这方面的配置可以参考<a target="_blank" rel="noopener" href="https://blog.mynook.info/post/fast-way-to-configure-a-https-site/">《快速配置 HTTPS》</a>。</p>
+</blockquote>
+<p>如果你使用 traefik 或其他反代方案，请自行参考工具各自的官方文档完成配置。</p>
+<p>最后启动服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<h1 id="用户注册和数据导入"><a href="#用户注册和数据导入" class="headerlink" title="用户注册和数据导入"></a>用户注册和数据导入</h1><p>启动服务后，通过浏览器访问你配置好的域名，应当看到下图所示的登录界面。</p>
+<p><img src="http://cdn.pidaye.top/wp-content/uploads/2019/03/bitwarden-web-vault-login-856%C3%97754.png" alt=""></p>
+<p>点击下方链接进入注册页面。</p>
+<p><img src="http://cdn.pidaye.top/wp-content/uploads/2019/03/bitwarden-web-vault-register-824%C3%971158.png" alt=""></p>
+<p>注册完毕之后不需要验证邮箱（bitwarden_rs 目前没有实现邮件相关的功能），直接登录。登录之后在左侧栏的「工具」菜单中找到数据导入页面，如图。</p>
+<p><img src="http://cdn.pidaye.top/wp-content/uploads/2019/03/bitwarden-import-940%C3%97584.png" alt=""></p>
+<p>在这里进行数据导入就可以啦。</p>
+<h1 id="关闭用户注册、关闭-web-vault"><a href="#关闭用户注册、关闭-web-vault" class="headerlink" title="关闭用户注册、关闭 web vault"></a>关闭用户注册、关闭 web vault</h1><p>现在你的 Bitwarden 服务器允许任何人注册帐号使用，你可能希望关闭这个功能。在前面生成的 <code>config.env</code> 中，调整以下两项值：</p>
+<pre><code>SIGNUPS_ALLOWED=false
+WEB_VAULT_ENABLED=false
+</code></pre><p>修改之后，需要重启 bitwarden 服务才生效。运行以下命令来删除并重新创建容器。不必担心，因为指定了 <code>volume</code> 映射，你的数据不会被删除。</p>
+<pre><code>docker-compose down &amp;&amp; docker-compose up -d
+</code></pre><p>这样就关闭了用户注册功能，并禁用了 web vault 的访问。密码数据之后还是可以在客户端中进行编辑的。</p>
+<h1 id="客户端的使用"><a href="#客户端的使用" class="headerlink" title="客户端的使用"></a>客户端的使用</h1><p>安装配置好服务端后，还需要在客户端上登录，将数据同步过来，才能使用自动填充等功能。Bitwarden 的客户端界面都大同小异，这里以 Firefox 扩展为例。</p>
+<p>首先在登录界面，点击左上角齿轮图标的设置按钮。</p>
+<p><img src="http://cdn.pidaye.top/wp-content/uploads/2019/03/bitwarden-client-login-748%C3%97754.png" alt=""></p>
+<p>在设置界面，只需要在最上面的服务器地址栏中，填写你的 Bitwarden 服务器地址即可。然后点击设置界面右上角的「保存」。接下来使用你的邮箱和主密码登录即可同步数据。</p>
+<p><img src="http://cdn.pidaye.top/wp-content/uploads/2019/03/bitwarden-client-settings-login-748%C3%97608.png" alt=""></p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>对于使用任何密码管理工具的人来说，主密码的重要性不言而喻。一旦主密码泄漏，相当于将所有帐号密码拱手相让；一旦主密码丢失，所有数据也都化作随机噪音，变得一文不值。所以，请时常审视、改进你的安全策略，定期对帐号做安全审查，不定期修改并牢记主密码。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.mynook.info/tags/%E5%AE%89%E5%85%A8">安全</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.mynook.info/tags/safeincloud">SafeInCloud</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.mynook.info/tags/enpass">Enpass</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.mynook.info/tags/bitwarden">Bitwarden</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.mynook.info/tags/%E5%AF%86%E7%A0%81">密码</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.mynook.info/tags/%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86">密码管理</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.mynook.info/tags/%E5%B7%A5%E5%85%B7">工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.mynook.info/tags/docker">Docker</a></li>
+</ul>
+
+      
+    </div>
+	<div>
+      
+        ﻿
+      
+	</div>
+	<div>
+      
+          ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+              ----------本文结束<i class="fa fa-paw"></i>感谢您的阅读----------
+        </div>
+    
+</div>
+      
+	</div>
+    
+    
+    
+
+    
+
+    
+
+    
+		
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"><i class="fa fa-tag"></i> docker</a>
+          
+            <a href="/tags/bitwarden/" rel="tag"><i class="fa fa-tag"></i> bitwarden</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/02/%E4%B8%BB%E9%A2%98%E4%BF%AE%E6%94%B9%EF%BC%9A%E6%AC%B2%E6%80%9D%E4%B8%BB%E9%A2%98%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E7%AD%94-%E9%9D%9E%E5%AE%98%E6%96%B9FAQ/" rel="next" title="主题修改：欲思主题常见问题与解答[非官方FAQ]">
+                <i class="fa fa-chevron-left"></i> 主题修改：欲思主题常见问题与解答[非官方FAQ]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/11/docker%E5%AD%A6%E4%B9%A0%EF%BC%9A%E8%BD%BB%E9%87%8F%E7%BA%A7%E5%9B%BE%E5%BD%A2%E9%A1%B5%E9%9D%A2%E7%AE%A1%E7%90%86%E4%B9%8BPortainer/" rel="prev" title="docker学习：轻量级图形页面管理之Portainer">
+                docker学习：轻量级图形页面管理之Portainer <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ddhsa" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ddhsa@126.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.uisdc.com/" title="优设" target="_blank">优设</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.liaoxuefeng.com/" title="廖雪峰" target="_blank">廖雪峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://translate.google.cn" title="谷歌翻译" target="_blank">谷歌翻译</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://tool.oschina.net/codeformat/json" title="代码格式转换" target="_blank">代码格式转换</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.jq22.com/textDifference" title="文本对比" target="_blank">文本对比</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.aconvert.com/cn/" title="文件转换" target="_blank">文件转换</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%98%E8%B5%B7"><span class="nav-number">1.</span> <span class="nav-text">缘起</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A6%81%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text">要求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C-HTTPS%E3%80%81%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.</span> <span class="nav-text">反向代理和 HTTPS、启动服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%E5%92%8C%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5"><span class="nav-number">5.</span> <span class="nav-text">用户注册和数据导入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%E3%80%81%E5%85%B3%E9%97%AD-web-vault"><span class="nav-number">6.</span> <span class="nav-text">关闭用户注册、关闭 web vault</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">客户端的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">8.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ddhsa</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GFz2SbREPp2DMHW0QHPl94gg-gzGzoHsz',
+        appKey: 'oVifnPV3ed3m5YbcrBS9nP7F',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("GFz2SbREPp2DMHW0QHPl94gg-gzGzoHsz", "oVifnPV3ed3m5YbcrBS9nP7F");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

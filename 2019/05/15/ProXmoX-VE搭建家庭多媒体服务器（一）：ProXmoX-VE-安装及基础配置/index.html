@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="pve,家庭服务器," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="学无止境" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="原文链接基于ProXmoX VE的虚拟化家庭服务器（篇一）—ProXmoX VE 安装及基础配置修改了中间的代码错误和格式调整  为什么用ProXmoX VE主要还是一个朋友推荐，他自己用的是ESXI，觉得限制还是有的，况且proxmox ve兼容性好啊，我家买了一个SYS E300-8D买来当然不能荒废，果断选一个好用不费劲的方案 下面列一下主流的几个虚拟化方案的优缺点  ESXI-比较热门的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ProXmoX VE搭建家庭多媒体服务器（一）：ProXmoX VE 安装及基础配置">
+<meta property="og:url" content="https://ddhsa.github.io/2019/05/15/ProXmoX-VE%E6%90%AD%E5%BB%BA%E5%AE%B6%E5%BA%AD%E5%A4%9A%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AProXmoX-VE-%E5%AE%89%E8%A3%85%E5%8F%8A%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="学无止境">
+<meta property="og:description" content="原文链接基于ProXmoX VE的虚拟化家庭服务器（篇一）—ProXmoX VE 安装及基础配置修改了中间的代码错误和格式调整  为什么用ProXmoX VE主要还是一个朋友推荐，他自己用的是ESXI，觉得限制还是有的，况且proxmox ve兼容性好啊，我家买了一个SYS E300-8D买来当然不能荒废，果断选一个好用不费劲的方案 下面列一下主流的几个虚拟化方案的优缺点  ESXI-比较热门的">
+<meta property="og:locale">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f4976ed9f19895_e600.jpg%20600%C3%97375.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f4977217c69276_e600.jpg%20600%C3%97450.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f4977859ad8338_e600.jpg%20600%C3%97450.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f4977dc3429854_e600.jpg%20600%C3%97450.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f497816c518309_e600.jpg%20600%C3%97361.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f49784e6f89797_e600.jpg%20600%C3%97316.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f49787f9326583_e600.jpg%20600%C3%97236.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f49789dc6b2067_e600.jpg%20600%C3%97337.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f4978cca96571_e600.jpg%20600%C3%97547.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f4978be99b1781_e600.jpg%20478%C3%97108.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f49791b0d89311_e600.jpg%20466%C3%97120.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f49790c5c72082_e600.jpg%20472%C3%9792.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f497931d597756_e600.jpg%20600%C3%9740.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f4979617127416_e600.jpg%20600%C3%97186.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f497979a976234_e600.jpg%20600%C3%97423.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f4979909b93240_e600.jpg%20600%C3%97247.png">
+<meta property="og:image" content="http://cdn.pidaye.top/5b9f4979cb1bf7047_e600.jpg%20600%C3%97131.png">
+<meta property="article:published_time" content="2019-05-15T10:22:00.000Z">
+<meta property="article:modified_time" content="2022-05-06T08:19:28.893Z">
+<meta property="article:author" content="ddhsa">
+<meta property="article:tag" content="pve">
+<meta property="article:tag" content="家庭服务器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.pidaye.top/5b9f4976ed9f19895_e600.jpg%20600%C3%97375.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://ddhsa.github.io/2019/05/15/ProXmoX-VE搭建家庭多媒体服务器（一）：ProXmoX-VE-安装及基础配置/"/>
+
+
+
+
+
+  <title>ProXmoX VE搭建家庭多媒体服务器（一）：ProXmoX VE 安装及基础配置 | 学无止境</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学无止境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">提升自己是亘古不变的真理</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ddhsa.github.io/2019/05/15/ProXmoX-VE%E6%90%AD%E5%BB%BA%E5%AE%B6%E5%BA%AD%E5%A4%9A%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AProXmoX-VE-%E5%AE%89%E8%A3%85%E5%8F%8A%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学无止境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ProXmoX VE搭建家庭多媒体服务器（一）：ProXmoX VE 安装及基础配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T10:22:00+00:00">
+                2019-05-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-05-06T08:19:28+00:00">
+                2022-05-06
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E5%85%B4%E8%B6%A3/" itemprop="url" rel="index">
+                    <span itemprop="name">个人兴趣</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/15/ProXmoX-VE%E6%90%AD%E5%BB%BA%E5%AE%B6%E5%BA%AD%E5%A4%9A%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AProXmoX-VE-%E5%AE%89%E8%A3%85%E5%8F%8A%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/15/ProXmoX-VE%E6%90%AD%E5%BB%BA%E5%AE%B6%E5%BA%AD%E5%A4%9A%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AProXmoX-VE-%E5%AE%89%E8%A3%85%E5%8F%8A%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/05/15/ProXmoX-VE%E6%90%AD%E5%BB%BA%E5%AE%B6%E5%BA%AD%E5%A4%9A%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AProXmoX-VE-%E5%AE%89%E8%A3%85%E5%8F%8A%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/" class="leancloud_visitors" data-flag-title="ProXmoX VE搭建家庭多媒体服务器（一）：ProXmoX VE 安装及基础配置">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>原文链接<a target="_blank" rel="noopener" href="https://post.smzdm.com/p/768830/">基于ProXmoX VE的虚拟化家庭服务器（篇一）—ProXmoX VE 安装及基础配置</a><br>修改了中间的代码错误和格式调整</p>
+</blockquote>
+<h1 id="为什么用ProXmoX-VE"><a href="#为什么用ProXmoX-VE" class="headerlink" title="为什么用ProXmoX VE"></a>为什么用ProXmoX VE</h1><p>主要还是一个朋友推荐，他自己用的是<code>ESXI</code>，觉得限制还是有的，况且<code>proxmox ve</code>兼容性好啊，我家买了一个<code>SYS E300-8D</code>买来当然不能荒废，果断选一个好用不费劲的方案</p>
+<p>下面列一下主流的几个虚拟化方案的优缺点</p>
+<ul>
+<li><p><code>ESXI</code>-比较热门的GEN8全虚拟化系统，然而在GEN8上一直存在一些小问题，安装使用一个月，6.0以上系统的磁盘问题通过换驱动解决了，但是出现虚拟机偶尔卡住无法关机等情况，而且开关机引导时间很长</p>
+</li>
+<li><p><code>UNRAID</code>，非常厉害的一个半虚拟化系统，配置简单，傻瓜直通，然而界面英文，我这种外文渣用起来非常难受，授权收费<code>basic</code>$59，<code>plus</code>$89，<code>pro</code>$129，存储数量依次为Basic：6个存储介质，Plus：12个存储介质，Pro：不限，申请了一个30天的试用KEY，用了2天就没用下去了，英文太难受。</p>
+</li>
+</ul>
+<p>最后定下来使用ProXmoX VE</p>
+<h1 id="ProXmoX-VE-介绍"><a href="#ProXmoX-VE-介绍" class="headerlink" title="ProXmoX VE 介绍"></a>ProXmoX VE 介绍</h1><p><code>Proxmox VE</code>是一款套开源的虚拟化管理软件，用户可通过网页的方式来管理<a target="_blank" rel="noopener" href="https://www.smzdm.com/fenlei/fuwuqi/">服务器</a>上使用 <code>kvm</code> 以及 <code>lxc</code> 技术运行的虚拟机。同时提供了一些先进功能的支持，如<code>集群</code>、<code>HA</code>等。</p>
+<p><code>PVE</code>虽然是开源，却是由一个商业公司在运营、更新以及维护。</p>
+<h1 id="ProXmoX-VE-安装"><a href="#ProXmoX-VE-安装" class="headerlink" title="ProXmoX VE 安装"></a>ProXmoX VE 安装</h1><h2 id="基础准备"><a href="#基础准备" class="headerlink" title="基础准备"></a>基础准备</h2><p>16G以上U盘一个(非必须，这个U盘是用来安装PROXMOX的，也可以直接装<a target="_blank" rel="noopener" href="https://www.smzdm.com/fenlei/yingpan/">硬盘</a>上，GEN8比较特殊，使用U盘引导比较方便，所以我安装在U盘上)；4G以上U盘一个；</p>
+<p>支持虚拟化技术的CPU；</p>
+<p>如果要虚拟软路由，需要有2个网口以上，最好千兆;</p>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><p>首先去proxmox下载安装包，目前最新版本是5.4-1，推荐使用<a target="_blank" rel="noopener" href="https://www.proxmox.com/en/downloads">种子</a>下载，速度会比较快，下载完成后务必使用使用工具进行SHA256校验，防止下载错误;</p>
+<h3 id="方法一：使用U盘做启动盘安装系统"><a href="#方法一：使用U盘做启动盘安装系统" class="headerlink" title="方法一：使用U盘做启动盘安装系统"></a>方法一：使用U盘做启动盘安装系统</h3><blockquote>
+<p>如果你有<code>IPMI</code>那更好了直接可以用虚拟磁盘，具体方式可以跳到下一个</p>
+</blockquote>
+<p>然后使用软碟通把下载的ISO文件刻录进4G的U盘（本人使用GEN8的ILO4远程安装，有GEN8的朋友应该知道咋弄）。</p>
+<p>接着把4GU盘和16GU盘插入电脑，BIOS中开启虚拟化支持（具体方法百度，BIOS太多，我就不放图了），一个网口接入路由，使用4GU盘引导启动很快就会进入安装界面。</p>
+<h3 id="方法二：使用IPMI虚拟磁盘安装系统"><a href="#方法二：使用IPMI虚拟磁盘安装系统" class="headerlink" title="方法二：使用IPMI虚拟磁盘安装系统"></a>方法二：使用IPMI虚拟磁盘安装系统</h3><h3 id="安装使用"><a href="#安装使用" class="headerlink" title="安装使用"></a>安装使用</h3><p><img src="http://cdn.pidaye.top/5b9f4976ed9f19895_e600.jpg%20600%C3%97375.png" alt="5b9f4976ed9f19895_e600.jpg 600×375"></p>
+<p>此处选择第一项回车，稍微等待一会，进入下图界面</p>
+<p><img src="http://cdn.pidaye.top/5b9f4977217c69276_e600.jpg%20600%C3%97450.png" alt="5b9f4977217c69276_e600.jpg 600×450"></p>
+<p>选择 <code>I agree</code></p>
+<p>这里选择你要安装的的硬盘或者U盘，选定后点击<code>Next</code></p>
+<p><img src="http://cdn.pidaye.top/5b9f4977859ad8338_e600.jpg%20600%C3%97450.png" alt="5b9f4977859ad8338_e600.jpg 600×450"></p>
+<p>这里一般会默认<code>China</code>，如果没有那就输入china，其他默认，点击<code>Next</code></p>
+<p>然后输入两遍<code>管理密码和邮箱</code>，点击<code>Next</code></p>
+<p><img src="http://cdn.pidaye.top/5b9f4977dc3429854_e600.jpg%20600%C3%97450.png" alt="5b9f4977dc3429854_e600.jpg 600×450"></p>
+<p>这里注意，查看一下是不是你局域网的网段，如果不是，很可能和路由之间网络不通，另外，<code>Hostname</code>这项的格式需为<code>*.*</code>，默认的是无法下一步的，我这里使用PVE.LEN，点击<code>next</code>，等待安装完成，出现如下界面时，说明安装已经完成，点击<code>reboot</code>，</p>
+<p>等待重启完成，拔掉U盘或者退出，虚拟磁盘如果顺利，会出现如下界面</p>
+<p><img src="http://cdn.pidaye.top/5b9f497816c518309_e600.jpg%20600%C3%97361.png" alt="5b9f497816c518309_e600.jpg 600×361"></p>
+<h1 id="ProXmoX-VE-初始配置"><a href="#ProXmoX-VE-初始配置" class="headerlink" title="ProXmoX VE 初始配置"></a>ProXmoX VE 初始配置</h1><h2 id="使用浏览器登录"><a href="#使用浏览器登录" class="headerlink" title="使用浏览器登录"></a>使用浏览器登录</h2><p>用另外一台电脑在浏览器中输入上面的地址进行访问</p>
+<p><img src="http://cdn.pidaye.top/5b9f49784e6f89797_e600.jpg%20600%C3%97316.png" alt="5b9f49784e6f89797_e600.jpg 600×316"></p>
+<p><code>language</code>选择<code>chinese</code>就可以中文访问啦，用户名输入<code>root</code>，密码为刚才安装时候输的两遍管理密码</p>
+<p><img src="http://cdn.pidaye.top/5b9f49787f9326583_e600.jpg%20600%C3%97236.png" alt="5b9f49787f9326583_e600.jpg 600×236"></p>
+<h2 id="去掉订阅弹窗"><a href="#去掉订阅弹窗" class="headerlink" title="去掉订阅弹窗"></a>去掉订阅弹窗</h2><p>由于proxmox一些功能是需要付费订阅的，虽然可以免费使用，但是每次登陆时候都会弹出如上让你订阅的通知，比较烦，我们这里通过技术手段把它屏蔽掉。</p>
+<p>首先点击确定把它关掉，然后通过winscp打开以下文件<code>/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js</code>，或者直接在</p>
+<p><img src="http://cdn.pidaye.top/5b9f49789dc6b2067_e600.jpg%20600%C3%97337.png" alt="5b9f49789dc6b2067_e600.jpg 600×337"></p>
+<p>shell中使用VI等工具编辑，找到<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(data.status!==&#x27;Active&#x27;)&#123;</span><br></pre></td></tr></table></figure></p>
+<p>替换为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(false)&#123;</span><br></pre></td></tr></table></figure>
+<p>这条位置比较靠后，大约在800行，替换完成后保存文件，注销登陆，清理浏览器缓存，再次登陆，发现已经不再弹窗让你订阅啦。</p>
+<p>接下来下来我们更新一下proxomx的软件，proxmox的底层毕竟是个debian系统，刚安装还是要更新一下的，在shell中输入<code>apt update &amp;&amp; apt dist-upgrade</code>，回车，发现报错无法更新，查看官方文档发现需要更改一些设置，在<code>shell</code>输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -f /etc/apt/sources.list.d/pve-enterprise.list</span><br></pre></td></tr></table></figure>
+<p>添加新的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;deb http://download.proxmox.com/debian/pve stretch pve-no-subscription&quot; &gt; /etc/apt/sources.list.d/pve-install-repo.list</span><br></pre></td></tr></table></figure>
+<p>下载秘钥<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.proxmox.com/debian/proxmox-ve-release-5.x.gpg-O /etc/apt/trusted.gpg.d/proxmox-ve-release-5.x.gpg</span><br></pre></td></tr></table></figure></p>
+<p>再次输入<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update &amp;&amp; apt dist-upgrade</span><br></pre></td></tr></table></figure></p>
+<p>已经可以正常更新，等待更新完成，更新完成后重启一下虚拟机</p>
+<h1 id="ProXmoX-VE-磁盘映射"><a href="#ProXmoX-VE-磁盘映射" class="headerlink" title="ProXmoX VE 磁盘映射"></a>ProXmoX VE 磁盘映射</h1><p>如果你的proxmox是直接安装在硬盘上的，那已经可以正常使用了，如果你和我一样是安装在U盘的，因为U盘空间比较小，需要弄个硬盘用来安装虚拟机</p>
+<p><img src="http://cdn.pidaye.top/5b9f4978cca96571_e600.jpg%20600%C3%97547.png" alt="5b9f4978cca96571_e600.jpg 600×547"></p>
+<p>在磁盘中看下哪个是你要挂载的硬盘，一般推荐SSD，我这里需要挂载的设备目录为<code>/dev/sdb</code>，  </p>
+<p>在shell中输入<code>mkdir /mnt/sdb</code>创建sdb<a target="_blank" rel="noopener" href="https://www.smzdm.com/fenlei/wenjianjia/">文件夹</a>用来给磁盘挂载</p>
+<p>输入<code>fdisk /dev/sdb</code>管理这个硬盘，给它分区</p>
+<p>输入<code>n</code>新建分区</p>
+<p><img src="http://cdn.pidaye.top/5b9f4978be99b1781_e600.jpg%20478%C3%97108.png" alt="5b9f4978be99b1781_e600.jpg 478×108"></p>
+<p>输入<code>p</code>建立主分区，</p>
+<p><img src="http://cdn.pidaye.top/5b9f49791b0d89311_e600.jpg%20466%C3%97120.png" alt="5b9f49791b0d89311_e600.jpg 466×120"></p>
+<p>输入<code>1</code>创建一个分区，</p>
+<p><img src="http://cdn.pidaye.top/5b9f49790c5c72082_e600.jpg%20472%C3%9792.png" alt="5b9f49790c5c72082_e600.jpg 472×92"></p>
+<p>这里是让输入这个分区的扇区起始位置，我们选择默认，直接<code>回车</code></p>
+<p><img src="http://cdn.pidaye.top/5b9f497931d597756_e600.jpg%20600%C3%9740.png" alt="5b9f497931d597756_e600.jpg 600×40"></p>
+<p>分区的扇区结束位置，默认，<code>直接回车</code>，到此就分区完成了，我们输入<code>p</code>查看一下  </p>
+<p><img src="http://cdn.pidaye.top/5b9f4979617127416_e600.jpg%20600%C3%97186.png" alt="5b9f4979617127416_e600.jpg 600×186"></p>
+<p>分区已经完成，目录为<code>/dev/sdb1</code></p>
+<p>输入<code>w</code>，保存并退出<code>fdisk</code>工具</p>
+<p>输入<code>mkfs -t ext4/dev/sdb1</code>格式化一下</p>
+<p>输入<code>mount/dev/sdb1 /mnt/sdb</code>进行挂载</p>
+<p>输入<code>vim /etc/fstab</code>编辑一下这个文件，在最后追加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/sdb1 /mnt/sdbext4 defaults 0 0</span><br></pre></td></tr></table></figure>
+<p><code>ctrl+x</code>退出保存 按<code>Y</code> 是否保存 <code>Enter</code> 退出<br><code>cat /etc/fstab</code> 看最后一行是否加入成功</p>
+<p>使proxmox可以开机自动挂载.</p>
+<p>然后依次点击数据<code>中心</code>-<code>存储</code>-<code>添加</code>-<code>目录</code></p>
+<p><img src="http://cdn.pidaye.top/5b9f497979a976234_e600.jpg%20600%C3%97423.png" alt="5b9f497979a976234_e600.jpg 600×423"></p>
+<p><img src="http://cdn.pidaye.top/5b9f4979909b93240_e600.jpg%20600%C3%97247.png" alt="5b9f4979909b93240_e600.jpg 600×247"></p>
+<p><code>ID</code>随意，目录输入刚才挂载的目录，内容都选上，点添加，</p>
+<p>最后点OS查看一下是否正常识别</p>
+<p><img src="http://cdn.pidaye.top/5b9f4979cb1bf7047_e600.jpg%20600%C3%97131.png" alt="5b9f4979cb1bf7047_e600.jpg 600×131"></p>
+<hr>
+<p>顺便推荐下这位老哥写的其他教程</p>
+<blockquote>
+<p>网络速度慢，我该怎么办？关注<a target="_blank" rel="noopener" href="https://post.smzdm.com/p/a25rk48n/"><strong>#家庭Wi-Fi布网#</strong></a>话题，参加有奖实战征稿！关注<a target="_blank" rel="noopener" href="https://www.smzdm.com/tag/%E5%A6%82%E4%BD%95%E7%8E%A9%E8%BD%ACNAS/post/"><strong>#如何玩转NAS#</strong></a>话题，与其用一个朝开夕倒的免费云，不如自己动手搭建一个私有云，没那么难(＾Ｕ＾)ノ~</p>
+</blockquote>
+
+      
+    </div>
+	<div>
+      
+        ﻿
+      
+	</div>
+	<div>
+      
+          ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+              ----------本文结束<i class="fa fa-paw"></i>感谢您的阅读----------
+        </div>
+    
+</div>
+      
+	</div>
+    
+    
+    
+
+    
+
+    
+
+    
+		
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pve/" rel="tag"><i class="fa fa-tag"></i> pve</a>
+          
+            <a href="/tags/%E5%AE%B6%E5%BA%AD%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 家庭服务器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/07/Linux%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9ALinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%EF%BC%88%E9%9D%9E%E5%B8%B8%E5%85%A8%EF%BC%81%EF%BC%81%EF%BC%81%EF%BC%89/" rel="next" title="Linux学习记录（二）：Linux常用命令大全（非常全！！！）">
+                <i class="fa fa-chevron-left"></i> Linux学习记录（二）：Linux常用命令大全（非常全！！！）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/17/ProXmoX-VE%E6%90%AD%E5%BB%BA%E5%AE%B6%E5%BA%AD%E5%A4%9A%E5%AA%92%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9AFrp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE/" rel="prev" title="ProXmoX VE搭建家庭多媒体服务器（二）：Frp内网穿透实现外网访问">
+                ProXmoX VE搭建家庭多媒体服务器（二）：Frp内网穿透实现外网访问 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ddhsa" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ddhsa@126.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.uisdc.com/" title="优设" target="_blank">优设</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.liaoxuefeng.com/" title="廖雪峰" target="_blank">廖雪峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://translate.google.cn" title="谷歌翻译" target="_blank">谷歌翻译</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://tool.oschina.net/codeformat/json" title="代码格式转换" target="_blank">代码格式转换</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.jq22.com/textDifference" title="文本对比" target="_blank">文本对比</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.aconvert.com/cn/" title="文件转换" target="_blank">文件转换</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8ProXmoX-VE"><span class="nav-number">1.</span> <span class="nav-text">为什么用ProXmoX VE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ProXmoX-VE-%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">ProXmoX VE 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ProXmoX-VE-%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">ProXmoX VE 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E5%87%86%E5%A4%87"><span class="nav-number">3.1.</span> <span class="nav-text">基础准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="nav-number">3.2.</span> <span class="nav-text">安装过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8U%E7%9B%98%E5%81%9A%E5%90%AF%E5%8A%A8%E7%9B%98%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.2.1.</span> <span class="nav-text">方法一：使用U盘做启动盘安装系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8IPMI%E8%99%9A%E6%8B%9F%E7%A3%81%E7%9B%98%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.2.2.</span> <span class="nav-text">方法二：使用IPMI虚拟磁盘安装系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8"><span class="nav-number">3.2.3.</span> <span class="nav-text">安装使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ProXmoX-VE-%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">ProXmoX VE 初始配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95"><span class="nav-number">4.1.</span> <span class="nav-text">使用浏览器登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%BB%E6%8E%89%E8%AE%A2%E9%98%85%E5%BC%B9%E7%AA%97"><span class="nav-number">4.2.</span> <span class="nav-text">去掉订阅弹窗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ProXmoX-VE-%E7%A3%81%E7%9B%98%E6%98%A0%E5%B0%84"><span class="nav-number">5.</span> <span class="nav-text">ProXmoX VE 磁盘映射</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ddhsa</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GFz2SbREPp2DMHW0QHPl94gg-gzGzoHsz',
+        appKey: 'oVifnPV3ed3m5YbcrBS9nP7F',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("GFz2SbREPp2DMHW0QHPl94gg-gzGzoHsz", "oVifnPV3ed3m5YbcrBS9nP7F");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
